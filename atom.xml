@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>insight21</title>
+  
+  <subtitle>希望是个能言善道的人</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.acaiblog.xyz/"/>
+  <updated>2020-01-12T06:09:29.265Z</updated>
+  <id>http://www.acaiblog.xyz/</id>
+  
+  <author>
+    <name>insight21</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>My First archive</title>
+    <link href="http://www.acaiblog.xyz/2020/01/12/My-First-archive/"/>
+    <id>http://www.acaiblog.xyz/2020/01/12/My-First-archive/</id>
+    <published>2020-01-12T05:06:53.000Z</published>
+    <updated>2020-01-12T06:09:29.265Z</updated>
+    
+    <content type="html"><![CDATA[<p>文章测试</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文章测试&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pr
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
