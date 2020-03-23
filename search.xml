@@ -6,5 +6,8 @@
     <content><![CDATA[<p>文章测试</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
   </entry>
 </search>
