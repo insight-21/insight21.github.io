@@ -61,7 +61,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
@@ -310,19 +312,19 @@
         <div class="post-meta">
           <span class="post-time">
             
+
+            
+
+            
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="fa fa-calendar-check-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-12T13:06:53+08:00">
-                2020-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-24T09:56:01+08:00">
+                2020-03-24
               </time>
-            
-
-            
-
             
           </span>
 
@@ -370,7 +372,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6
+                  10
                 </span>
               
 
@@ -409,10 +411,19 @@
       
         
           
-            <p>文章测试</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
+          文章测试
+1echo "hello"
+
+$$\pi = \frac a b$$
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/01/12/My-First-archive/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -525,19 +536,19 @@
                   <span class="links-of-author-item">
                     <a href="https://github.com/insight-21" target="_blank" title="GitHub">
                       
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                        <i class="fa fa-fw fa-github"></i></a>
                   </span>
                 
                   <span class="links-of-author-item">
                     <a href="https://blog.csdn.net/insight2" target="_blank" title="CSDN">
                       
-                        <i class="fa fa-fw fa-cpoyright"></i>CSDN</a>
+                        <i class="fa fa-fw fa-pen"></i></a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="http://www.acaiblog.xyz/about/" target="_blank" title="QQ">
+                    <a href="/images/qqContact.jpg" target="_blank" title="QQ">
                       
-                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                        <i class="fa fa-fw fa-qq"></i></a>
                   </span>
                 
             </div>
@@ -1070,9 +1081,36 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.staticfile.org/MathJax/MathJax-2.6-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
+  
+
+
+  <!-- 文件位置：~/theme/next/layout/_layout.swig -->
+  <!-- <script type="text/javascript" src="/js/src/crash_cheat.js"></script> -->
   
 
 </body>

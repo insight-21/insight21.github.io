@@ -5,6 +5,8 @@
     <url>/2020/01/12/My-First-archive/</url>
     <content><![CDATA[<p>文章测试</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
+
+<p>$$<br>\pi = \frac a b<br>$$</p>
 ]]></content>
       <categories>
         <category>Tools</category>
