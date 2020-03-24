@@ -1833,7 +1833,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3bcff1;
+  background: #001d45;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3138,4 +3138,22 @@ pre .javascript .function {
   #footer a {
     coler: #eee;
   }
+}
+@font-face {
+  font-family: "iconfont";
+  src: url("iconfont.eot?t=1585022203159"); /* IE9 */
+  src: url("iconfont.eot?t=1585022203159#iefix") format('embedded-opentype'), url("data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOQAAsAAAAAB6QAAANCAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqDCIJsATYCJAMMCwgABCAFhG0HPBu4BhHVm5/IvjgwT5p+rBzvlbpdbZ5MAp2Q3nMQ8M+p9xAUxsAvKM2kpAOlYAICgG3DuyBXNzfDfo2KUCzJefC/fEc6WOmlYR0cM10KRZ/N5lJN0emRgBMcaGSCFNgG8kD+w9iVF7EcAvAkVjZhsVa2YUZjtBOA6NC2dVPMKQW6Jl1gRmAsGaoRUzBglmPlBWCy/3vxmoKZQWJQGF2rt8ppQamnvs9PqCH/h9DARcAbTwewUaCAbKBBNCo11EGFgWwKT0Wq6+ONaARyLPf//z5XlRtX+o8nQRgxUr0BSIcSeVI8mwEBz09wIA5QcmMY6gXshNjgDxJIi3dqf8cTm9NpXzlbCIcrbNO+4HWrQ3Ye5Oj4tPmbw1yu3KHurFmuQkOd9tPjc9xutjqC1zpxOGwzN8YwY2aa213b9ay/7and/Ty2NZzhsHVhl/V2OkNmzgy2zVgROstldTgYgp/DHTZ7ZYh95pB41f6KISjIcEWu2P1jRqGAe565zf3KlA+NyMvJPflz6qrCtg5FmWMzjGymxqZHlm5TwWQJVKVMOdmXBx52WEGUCjRZKrQpvEK6GjuymV3fzhZjPN4FzCi0+4dcYbgSFET8ulzTYWH6msly2Y4wfpHQLWGdq7TRQ+WCpWKgGLB40QDZQrcuHWr3s2ZZ2pYZLctmNLOIKrbSJSo2Ki+XWwvIPtXb5i9j9acJAP+r16q9H6I+rMvv+hv2pd581Niv2Fezlwbg1uKVv6HtP007E5hvxijg5/BalmlVYCiVlrk2VzcpLD11EiCby/glmQCB7vWXh7ROBYGZkBgkJmJAYSYZqbHZYMCLwmDETEnwJEu50V4E6YZCaA8g00gAAn+bQeLLYVD4u4jU2LtgINRbMOKfAk9yRdCUXqSGJlWWUQs6MA8kS7u31KKC9DeGY9WcFPjkP3JJbujqNhuecEceo0c5Qy/iwTNtMILVcF0JMtOMVuookoem8WUPqi1tlaIsoxZ0YB5Ilnbv1haV+/4bw7FqrsmqMP+RS6ofurptgZyke6usazmlnKEX8eCZNhiBDlczQJDLG81opY49fHloUDXfVlrPL98eIIflYewzca1nbJ0kHubVnPLDKUSpKgAA") format('woff2'), url("iconfont.woff?t=1585022203159") format('woff'), url("iconfont.ttf?t=1585022203159") format('truetype'), url("iconfont.svg?t=1585022203159#iconfont") format('svg'); /* iOS 4.1- */
+}
+.fa-custom {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.github:before {
+  content: "\e50e";
+}
+.copyright:before {
+  content: "\e7c4";
 }
