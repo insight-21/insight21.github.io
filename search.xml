@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>书单</title>
+    <url>/2020/04/14/Book-List/</url>
+    <content><![CDATA[<p>闲来无事，心血来潮想要记录一下个人书单，同时也是一个学习路线，挂在博客上当参考。</p>
+ <a id="more"></a> 
+
+<blockquote>
+<p>黑色标粗，是我自己想要着重看的；</p>
+<p>标号呢，也代表想要阅读的次序。</p>
+</blockquote>
+<h3 id="计算机基础书籍-面试基础"><a href="#计算机基础书籍-面试基础" class="headerlink" title="计算机基础书籍  |  面试基础"></a>计算机基础书籍  |  面试基础</h3><ol>
+<li>数据结构和算法分析 [美] Mark Allen Weiss</li>
+<li>操作系统 </li>
+<li>计算机组成原理</li>
+<li><strong>计算机网络：自顶向下</strong></li>
+<li><strong>TCP / IP详解</strong></li>
+</ol>
+<h3 id="算法和竞赛书籍"><a href="#算法和竞赛书籍" class="headerlink" title="算法和竞赛书籍"></a>算法和竞赛书籍</h3><ol>
+<li><p><strong>算法竞赛入门经典</strong> [中]刘汝佳 （紫 蓝 绿三本书）</p>
+</li>
+<li><p>算法设计与分析/算法设计手册</p>
+</li>
+<li><p>挑战程序设计竞赛 [日] 秋叶拓哉  岩田阳一  北川宜稔 <del>（大概率不读）</del></p>
+</li>
+</ol>
+<h3 id="Java-基础书籍"><a href="#Java-基础书籍" class="headerlink" title="Java 基础书籍"></a>Java 基础书籍</h3><ol>
+<li><strong>Java核心实用技术卷一 、二</strong></li>
+<li><strong>Java编程思想 thinking in java</strong></li>
+<li><strong>深入理解Java虚拟机</strong></li>
+</ol>
+<h3 id="JavaEE-开发框架"><a href="#JavaEE-开发框架" class="headerlink" title="JavaEE  |  开发框架"></a>JavaEE  |  开发框架</h3><ol>
+<li><strong>Spring Boot 实战</strong> （强烈推荐，目前主流框架）</li>
+<li>Spring实战 （学完Spring Boot 回来看Spring）</li>
+<li>Spring揭秘</li>
+</ol>
+<h3 id="Java-提升修炼"><a href="#Java-提升修炼" class="headerlink" title="Java 提升修炼"></a>Java 提升修炼</h3><ol>
+<li>Java并发实战</li>
+<li>Java并发编程的艺术</li>
+<li>OnJava8</li>
+<li>Effective Java</li>
+<li>重构 改善既有代码设计</li>
+<li>函数编程思维</li>
+<li>JDK源码阅读</li>
+<li>阿里巴巴Java开发手册</li>
+</ol>
+<h3 id="零食"><a href="#零食" class="headerlink" title="零食"></a>零食</h3><ol>
+<li>浪潮之巅</li>
+<li>代码整洁之道</li>
+<li>程序员的职业素养</li>
+</ol>
+<p>最后留一句，大学毕业前能看到Spring Boot 算我🐂🍺。</p>
+]]></content>
+      <categories>
+        <category>Books</category>
+      </categories>
+  </entry>
+  <entry>
     <title>My First archive</title>
     <url>/2020/01/12/My-First-archive/</url>
     <content><![CDATA[<p>文章测试</p>
