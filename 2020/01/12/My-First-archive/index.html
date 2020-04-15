@@ -5,6 +5,9 @@
 
 <html class="theme-next gemini" lang="zh-Hans">
 <head>
+  <!--pjax：防止跳转页面音乐暂停-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -495,6 +498,7 @@
 
   <aside id="sidebar" class="sidebar">
     
+    
     <div class="sidebar-inner">
 
       
@@ -582,8 +586,32 @@
 
       
 
+      <!-- require APlayer -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+        <!-- require MetingJS-->
+        <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+        <!--网易云-->   
+        <meting-js
+          server="netease"
+          id="579172551"
+          type="playlist" 
+          mini="true"
+          fixed="true"
+          list-folded="true"
+          autoplay="false"
+          volume="0.4"
+          theme="#FADFA3"
+          order="list"
+          loop="all"
+          preload="auto"
+          lrc-type="0"
+          autoplay="true"
+          mutex="true">
+        </meting-js>
     </div>
-  </aside>
+    
+
 
 
         
