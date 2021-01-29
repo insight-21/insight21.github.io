@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>blog-deploy-trouble-website</title>
+    <url>/archives/3039932550/</url>
+    <content><![CDATA[<hr>
+<p>title: Hexo博客多线部署 GitHub Gitee Coding<br>categories:</p>
+<ul>
+<li>blog<br>abbrlink: 3039932550<br>comment: true</li>
+</ul>
+<hr>
+<p>结论：有钱直接上云服务器 没钱的话 不在乎自定义域名就部署国内 否则就GitHub吧</p>
+<a id="more"></a>
+
+<p>[toc]</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>花了一个下午折腾多线部署，以及域名解析<br>到最后一场空 老老实实回GitHub :(</p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
+<li>GitHub: 除了慢 什么都好</li>
+<li>Gitee &amp; Coding: 速度快 但是如果想要绑定好看的自定义域名 就需要氪金<ul>
+<li>Gitee: 需要升级到Gitee Pages Pro</li>
+<li>Coding: 大陆节点的自定义域名需要备案 腾讯云和阿里云备案都极其麻烦…</li>
+</ul>
+</li>
+<li>云服务器: 可以考虑 首次配置麻烦点 以及需要续费</li>
+</ul>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><code>git</code> + <code>hexo</code></p>
+<p>hexo博客的本地部署 请参考其他文章<br>本文具体讲本地已经可以运行的博客，如何部署到静态页面</p>
+<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><h2 id="Gitee"><a href="#Gitee" class="headerlink" title="Gitee"></a>Gitee</h2><h2 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h2>]]></content>
+  </entry>
+  <entry>
     <title>竞赛模板</title>
     <url>/archives/4279424088/</url>
     <content><![CDATA[<p>竞赛自用模板，放在博客当备份，方便取用。</p>
