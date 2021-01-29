@@ -10,7 +10,7 @@
 <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
 <li>GitHub: 除了慢 什么都好</li>
 <li>Gitee &amp; Coding: 速度快 但是如果想要绑定好看的自定义域名 就需要氪金<ul>
-<li>Gitee: 需要升级到Gitee Pages Pro</li>
+<li>Gitee: 需要升级到Gitee Pages Pro 不升级需要手动更新 以及无法绑定自定义域名</li>
 <li>Coding: 大陆节点的自定义域名需要备案 腾讯云和阿里云备案都极其麻烦…</li>
 </ul>
 </li>
