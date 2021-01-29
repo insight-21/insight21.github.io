@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>blog-deploy-trouble-website</title>
+    <title>Hexo博客多线部署 GitHub Gitee Coding</title>
     <url>/archives/3039932550/</url>
-    <content><![CDATA[<hr>
-<p>title: Hexo博客多线部署 GitHub Gitee Coding<br>categories:</p>
-<ul>
-<li>blog<br>comment: true<br>abbrlink: 3039932550</li>
-</ul>
-<hr>
-<p>结论：有钱直接上云服务器 没钱的话 不在乎自定义域名就部署国内 否则就GitHub吧</p>
+    <content><![CDATA[<p>结论：有钱直接上云服务器 没钱的话 不在乎自定义域名就部署国内 否则就GitHub吧</p>
 <a id="more"></a>
 
 <p>[toc]</p>
@@ -26,6 +20,9 @@
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><code>git</code> + <code>hexo</code></p>
 <p>hexo博客的本地部署 请参考其他文章<br>本文具体讲本地已经可以运行的博客，如何部署到静态页面</p>
 <h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><h2 id="Gitee"><a href="#Gitee" class="headerlink" title="Gitee"></a>Gitee</h2><h2 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h2>]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
   </entry>
   <entry>
     <title>竞赛模板</title>
