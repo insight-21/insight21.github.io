@@ -1833,7 +1833,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #60e552;
+  background: #ff46cf;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3155,4 +3155,19 @@ pre .javascript .function {
 }
 .copyright:before {
   content: "\e7c4";
+}
+@font-face {
+  font-family: "iconfont";
+  src: url("//at.alicdn.com/t/font_2358714_y8wpm4tf4d.eot?t=1612100588122"); /* IE9 */
+  src: url("//at.alicdn.com/t/font_2358714_y8wpm4tf4d.eot?t=1612100588122#iefix") format('embedded-opentype'), url("data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAL8AAsAAAAABsQAAAKtAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAqBRIE6ATYCJAMICwYABCAFhG0HOhvqBciusCnDvQiMDRfwgvtqyw/ABICgvl/Lnr/89oA4kZFE7upUbHScAnTylImOBOH2f+fy9wiFzXtTCNRrk+JRLkdqYw1o3KbE5ggUsh4P+bf3u4Pa2iJNIMBE2hJI25coiTDRtgIvAQLOGsAswHxX8mK7M+Ca+rEBDSQPaG6dFJUcCTjBgUUljWwDGfqG6eULGsjjEDADGbipqWMAbHx6nIBWReLBlvPy+SwRk7BmadKBWdzs7gCAp/D7+iGvFk4QdMmuRhFqvmJSjHPZnAmfwAcIWh0ADxwCfGiujW4ZibGMLGoyAfsqFH5W/v99C9qrEbG/TufnAPSg6J7ETnKr+Q6AH8ePATvM9K9w/cif3A+dPgwf3w0e3U673t9rsEXdWfF02HXmOD8b3LVfuutXk0vTzPUcDRja3O73dDhfks1mRsj8GQNCnizdJTU/ZXV7jf13dd/e7e7h/v/Eip/QKFhdjz+H0MM9atxWaJ4Qa+Yeprm7Vfv7GX6GcN5FybT3+C92JoDviqNXPCKbS/A2gPiENuHHiXs2+UKqrS4PrRS1OB411gFjIAPsrLgZq6vfZVJi9Xu1R/opPLEZ6TMPEUgdIRQ7gznQvDpVRRkpO7CxDCAle3AK9vCUHJI+8xqBhjeESgXM/apbphYtjiuKeYZF5EsiRQgGiLUyR1TYh6WoztOsNGQPYRpRAig3K6eYaMYBTOeYEYlJeYwRRGjQj5rAaVjXgyhEgyoWWJbMWKgsO5vUvSlLCPrB4QqF8RhMhPgkIQpBUADxOzOO0uf7YJIoHY+2lOWCQzAqQukeyZUlpwfZrAr0KruXVyJiJHkYhkAIKsgPaQKDMJ0uCAnVD1JhAiaLPCIcUibbtCN9VVnra/wfUMiq0HpXzH6htMIwziSKrmfSYDQgAgAAAAA=") format('woff2'), url("//at.alicdn.com/t/font_2358714_y8wpm4tf4d.woff?t=1612100588122") format('woff'), url("//at.alicdn.com/t/font_2358714_y8wpm4tf4d.ttf?t=1612100588122") format('truetype'), url("//at.alicdn.com/t/font_2358714_y8wpm4tf4d.svg?t=1612100588122#iconfont") format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.gitee:before {
+  content: "\e686";
 }
