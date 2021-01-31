@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>更新Hexo侧边社交链接图标 引入iconfont阿里巴巴矢量图标库</title>
+    <url>/archives/3753999883/</url>
+    <content><![CDATA[<p>简简单单 在博客主题的自定义css文件引入图标链接即可</p>
+<a id="more"></a>]]></content>
+  </entry>
+  <entry>
     <title>Hexo博客多线部署 GitHub Gitee Coding 云服务器</title>
     <url>/archives/3039932550/</url>
     <content><![CDATA[<p>结论：有钱直接上云服务器 没钱不在乎自定义域名就部署国内 否则只能GitHub</p>
