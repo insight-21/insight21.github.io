@@ -3,8 +3,10 @@
   <entry>
     <title>更新Hexo侧边社交链接图标 引入iconfont阿里巴巴矢量图标库</title>
     <url>/archives/3753999883/</url>
-    <content><![CDATA[<p>简简单单 在博客主题的自定义css文件引入图标链接即可</p>
-<a id="more"></a>]]></content>
+    <content><![CDATA[<p>简简单单 在博客主题的自定义css文件引入图标链接即可 记得CTRL+F5刷新哦</p>
+<a id="more"></a>
+
+<h2 id="找到图标下单"><a href="#找到图标下单" class="headerlink" title="找到图标下单"></a>找到图标下单</h2><h2 id="生成图标链接"><a href="#生成图标链接" class="headerlink" title="生成图标链接"></a>生成图标链接</h2><h2 id="找到主题的自定义css文件"><a href="#找到主题的自定义css文件" class="headerlink" title="找到主题的自定义css文件"></a>找到主题的自定义css文件</h2><h2 id="修改主题的配置文件"><a href="#修改主题的配置文件" class="headerlink" title="修改主题的配置文件"></a>修改主题的配置文件</h2>]]></content>
   </entry>
   <entry>
     <title>Hexo博客多线部署 GitHub Gitee Coding 云服务器</title>
