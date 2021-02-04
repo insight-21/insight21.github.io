@@ -73,12 +73,26 @@
       </categories>
   </entry>
   <entry>
-    <title>更新Hexo侧边社交链接图标 引入iconfont阿里巴巴矢量图标库</title>
+    <title>Hexo next主题 更新社交链接图标 引入iconfont阿里巴巴矢量图标库</title>
     <url>/archives/3753999883/</url>
     <content><![CDATA[<p>简简单单 在博客主题的自定义css文件引入图标链接即可 记得CTRL+F5刷新哦</p>
 <a id="more"></a>
 
-<h2 id="找到图标下单"><a href="#找到图标下单" class="headerlink" title="找到图标下单"></a>找到图标下单</h2><h2 id="生成图标链接"><a href="#生成图标链接" class="headerlink" title="生成图标链接"></a>生成图标链接</h2><h2 id="找到主题的自定义css文件"><a href="#找到主题的自定义css文件" class="headerlink" title="找到主题的自定义css文件"></a>找到主题的自定义css文件</h2><h2 id="修改主题的配置文件"><a href="#修改主题的配置文件" class="headerlink" title="修改主题的配置文件"></a>修改主题的配置文件</h2>]]></content>
+<h2 id="找到图标下单"><a href="#找到图标下单" class="headerlink" title="找到图标下单"></a>找到图标下单</h2><p>进入<a href="https://www.iconfont.cn/" target="_blank" rel="noopener">阿里巴巴矢量图标库</a><br>搜索图标，加入购物车，在购物车中选择添加至项目，如果没有则新建一个。</p>
+<h2 id="生成图标链接"><a href="#生成图标链接" class="headerlink" title="生成图标链接"></a>生成图标链接</h2><p>进入项目，选择<code>Font Class</code>选项，点击<code>查看在线链接</code><br>复制链接到浏览器地址栏打开，复制网页内容，大概是这个样子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@font-face &#123;&#125;</span><br><span class="line">.iconfont &#123;&#125;</span><br><span class="line">.xxx:before &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="找到主题的自定义css文件"><a href="#找到主题的自定义css文件" class="headerlink" title="找到主题的自定义css文件"></a>找到主题的自定义css文件</h2><p>配置文件路径 <code>\themes\next\source\css\_custom\custom.styl</code><br>如果没有则新建一个，然后把内容粘贴进去，可做适当修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># xxx是在主题配置文件使用图标要用到的图标名 可修改成自己想要的</span><br><span class="line">.xxx:before &#123;&#125;</span><br><span class="line"># 比如我改成gitee</span><br><span class="line">.gitee:before &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改主题的配置文件"><a href="#修改主题的配置文件" class="headerlink" title="修改主题的配置文件"></a>修改主题的配置文件</h2><p>在主题的配置文件中找到<code>social</code>选项<br>按照如下格式配置:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">social:</span><br><span class="line">  # 自定义社交链接名称: 个人主页链接 || custom 图标名</span><br><span class="line">  Gitee: https:&#x2F;&#x2F;gitee.com&#x2F;insight21 || custom gitee</span><br></pre></td></tr></table></figure>
+
+<p>到此就把社交链接图标更新完啦！如果有疑惑可以联系我！</p>
+]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
   </entry>
   <entry>
     <title>Hexo博客多线部署 GitHub Gitee Coding 云服务器</title>
