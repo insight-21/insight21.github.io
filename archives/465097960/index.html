@@ -97,14 +97,14 @@
 
 
 
-<meta name="description" content="文章测试 $$\pi &#x3D; \frac a b$$">
+<meta name="description" content="寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。欢迎来Acwing围观我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My First archive">
-<meta property="og:url" content="http://yoursite.com/archives/2043672006/">
+<meta property="og:title" content="Acwing寒假每日一题(提高组) 打卡记录 题解">
+<meta property="og:url" content="http://yoursite.com/archives/465097960/">
 <meta property="og:site_name" content="insight21">
-<meta property="og:description" content="文章测试 $$\pi &#x3D; \frac a b$$">
-<meta property="article:published_time" content="2020-01-12T05:11:22.037Z">
-<meta property="article:modified_time" content="2020-01-12T05:11:22.037Z">
+<meta property="og:description" content="寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。欢迎来Acwing围观我">
+<meta property="article:published_time" content="2021-02-04T05:02:29.044Z">
+<meta property="article:modified_time" content="2021-02-04T05:02:29.044Z">
 <meta property="article:author" content="insight21">
 <meta name="twitter:card" content="summary">
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2043672006/"/>
+  <link rel="canonical" href="http://yoursite.com/archives/465097960/"/>
 
 
 
 
 
-  <title>My First archive | insight21</title>
+  <title>Acwing寒假每日一题(提高组) 打卡记录 题解 | insight21</title>
   
 
 
@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/archives/2043672006/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/archives/465097960/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="insight21">
@@ -310,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">My First archive</h1>
+          <h1 class="post-title" itemprop="name headline">Acwing寒假每日一题(提高组) 打卡记录 题解</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-01-12T13:11:22+08:00">
-                2020-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2021-02-04T13:02:29+08:00">
+                2021-02-04
               </time>
             
           </span>
@@ -345,8 +345,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  10
+                  567
                 </span>
               
 
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -413,13 +413,56 @@
       
 
       
-        <p>文章测试</p>
-<p>$$<br>\pi = \frac a b<br>$$</p>
+        <p>寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。<br>题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。<br><a href="https://www.acwing.com/user/myspace/index/34956/" target="_blank" rel="noopener">欢迎来Acwing围观我</a></p>
 <a id="more"></a>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
-
-
+<h2 id="AcWing-125-耍杂技的牛"><a href="#AcWing-125-耍杂技的牛" class="headerlink" title="AcWing 125. 耍杂技的牛"></a><a href="https://www.acwing.com/problem/content/127/" target="_blank" rel="noopener">AcWing 125. 耍杂技的牛</a></h2><p>与 <a href="https://www.acwing.com/problem/content/116/" target="_blank" rel="noopener">AcWing 114. 国王游戏</a> 相同套路的一道题</p>
+<h3 id="排序-贪心"><a href="#排序-贪心" class="headerlink" title="排序 + 贪心"></a>排序 + 贪心</h3><p>时间复杂度 $O(nlog(n))$<br>做法：按照牛的重量与强壮程度之和 $W_i + S_i$ 排序，得到的便是最优做法。</p>
+<p>证明：<br>第 $i$ 头牛的危险程度： $\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</p>
+<p>接下来列出两头牛在位置顺序交换前后的危险程度</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} + W_{i+1} - S_i$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$\displaystyle\sum_{j=1}^{i}{W_j} - S_{i+1}$</td>
+<td>$\displaystyle\sum_{j=1}^{i-1}{W_j} - S_{i+1}$</td>
+</tr>
+</tbody></table>
+<p>化简式子，减去$\displaystyle\sum_{j=1}^{i-1}{W_j}$</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$- S_i (a)$</td>
+<td>$W_{i+1} - S_i (b)$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$W_i - S_{i+1} (c)$</td>
+<td>$- S_{i+1} (d)$</td>
+</tr>
+</tbody></table>
+<p>首先，明显 $a &lt; b, d &lt; c$<br>所以如果能得出 $b$ 和 $c$ 的关系，就能比较交换前后危险程度的大小<br>当 $W_{i+1} - S_i$ &gt;= $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &gt;= $W_i + S_i$，交换前的危险程度更小<br>当 $W_{i+1} - S_i$ &lt; $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &lt; $W_i + S_i$，交换前后的危险程度更小</p>
+<p>可知交换前后的危险程度和 $W_i + S_i$ 有关，到此证毕。</p>
+<p>具体做法：根据 $W_i + S_i$ 排序，然后枚举记录更大的危险程度，输出即可。</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5e4</span> + <span class="number">5</span>;</span><br><span class="line">pii a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> w, s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; w &gt;&gt; s;</span><br><span class="line">        <span class="comment">//因为sort函数是按照数组第一维来排序的</span></span><br><span class="line">        <span class="comment">//为了方便排序 直接把数组第一维变成两者之和</span></span><br><span class="line">        a[i] = &#123;w + s, w&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    sort(a, a + n);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">-0x3f3f3f3f</span>, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> w = a[i].second, s = a[i].first - w;</span><br><span class="line">        <span class="comment">//记录更大的危险程度 重量减去强壮程度</span></span><br><span class="line">        ans = <span class="built_in">max</span>(ans, sum - s);</span><br><span class="line">        <span class="comment">//计算重量之和</span></span><br><span class="line">        sum += w;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -443,15 +486,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/archives/2940978202/" rel="next" title="Acwing寒假每日一题(入门组) 打卡记录 题解">
+                <i class="fa fa-chevron-left"></i> Acwing寒假每日一题(入门组) 打卡记录 题解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/3902883597/" rel="prev" title="书单">
-                书单 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -504,8 +547,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            博客概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -588,6 +640,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AcWing-125-耍杂技的牛"><span class="nav-number">1.</span> <span class="nav-text">AcWing 125. 耍杂技的牛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序-贪心"><span class="nav-number">1.1.</span> <span class="nav-text">排序 + 贪心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考代码"><span class="nav-number">1.2.</span> <span class="nav-text">参考代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

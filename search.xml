@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Acwing寒假每日一题(提高组) 打卡记录 题解</title>
+    <url>/archives/465097960/</url>
+    <content><![CDATA[<p>寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。<br>题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。<br><a href="https://www.acwing.com/user/myspace/index/34956/" target="_blank" rel="noopener">欢迎来Acwing围观我</a></p>
+<a id="more"></a>
+
+<h2 id="AcWing-125-耍杂技的牛"><a href="#AcWing-125-耍杂技的牛" class="headerlink" title="AcWing 125. 耍杂技的牛"></a><a href="https://www.acwing.com/problem/content/127/" target="_blank" rel="noopener">AcWing 125. 耍杂技的牛</a></h2><p>与 <a href="https://www.acwing.com/problem/content/116/" target="_blank" rel="noopener">AcWing 114. 国王游戏</a> 相同套路的一道题</p>
+<h3 id="排序-贪心"><a href="#排序-贪心" class="headerlink" title="排序 + 贪心"></a>排序 + 贪心</h3><p>时间复杂度 $O(nlog(n))$<br>做法：按照牛的重量与强壮程度之和 $W_i + S_i$ 排序，得到的便是最优做法。</p>
+<p>证明：<br>第 $i$ 头牛的危险程度： $\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</p>
+<p>接下来列出两头牛在位置顺序交换前后的危险程度</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} + W_{i+1} - S_i$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$\displaystyle\sum_{j=1}^{i}{W_j} - S_{i+1}$</td>
+<td>$\displaystyle\sum_{j=1}^{i-1}{W_j} - S_{i+1}$</td>
+</tr>
+</tbody></table>
+<p>化简式子，减去$\displaystyle\sum_{j=1}^{i-1}{W_j}$</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$- S_i (a)$</td>
+<td>$W_{i+1} - S_i (b)$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$W_i - S_{i+1} (c)$</td>
+<td>$- S_{i+1} (d)$</td>
+</tr>
+</tbody></table>
+<p>首先，明显 $a &lt; b, d &lt; c$<br>所以如果能得出 $b$ 和 $c$ 的关系，就能比较交换前后危险程度的大小<br>当 $W_{i+1} - S_i$ &gt;= $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &gt;= $W_i + S_i$，交换前的危险程度更小<br>当 $W_{i+1} - S_i$ &lt; $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &lt; $W_i + S_i$，交换前后的危险程度更小</p>
+<p>可知交换前后的危险程度和 $W_i + S_i$ 有关，到此证毕。</p>
+<p>具体做法：根据 $W_i + S_i$ 排序，然后枚举记录更大的危险程度，输出即可。</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5e4</span> + <span class="number">5</span>;</span><br><span class="line">pii a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> w, s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; w &gt;&gt; s;</span><br><span class="line">        <span class="comment">//因为sort函数是按照数组第一维来排序的</span></span><br><span class="line">        <span class="comment">//为了方便排序 直接把数组第一维变成两者之和</span></span><br><span class="line">        a[i] = &#123;w + s, w&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    sort(a, a + n);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">-0x3f3f3f3f</span>, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> w = a[i].second, s = a[i].first - w;</span><br><span class="line">        <span class="comment">//记录更大的危险程度 重量减去强壮程度</span></span><br><span class="line">        ans = <span class="built_in">max</span>(ans, sum - s);</span><br><span class="line">        <span class="comment">//计算重量之和</span></span><br><span class="line">        sum += w;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Acwing寒假每日一题(入门组) 打卡记录 题解</title>
+    <url>/archives/2940978202/</url>
+    <content><![CDATA[<p>寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。<br>题目难度：入门级别。<br><a href="https://www.acwing.com/user/myspace/index/34956/" target="_blank" rel="noopener">欢迎来Acwing围观我</a></p>
+<a id="more"></a>
+
+<h2 id="Acwing-89-a-b"><a href="#Acwing-89-a-b" class="headerlink" title="Acwing 89. a^b"></a><a href="https://www.acwing.com/problem/content/91/" target="_blank" rel="noopener">Acwing 89. a^b</a></h2><h3 id="暴力运算"><a href="#暴力运算" class="headerlink" title="暴力运算"></a>暴力运算</h3><p>直接循环计算，时间复杂度 $O(n)$<br>缺点：容易超时</p>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b--) &#123;</span><br><span class="line">        ret = <span class="number">1L</span>L * ret * a % p;</span><br><span class="line">        a = <span class="number">1L</span>L * a * a % p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret % p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><p>利用二进制思想，转化为加权运算，减少不必要的运算，时间复杂度$O(log_2(n))$</p>
+<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>)</span><br><span class="line">            ret = <span class="number">1L</span>L * ret * a % p;</span><br><span class="line">        a = <span class="number">1L</span>L * a * a % p;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret % p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+  </entry>
+  <entry>
     <title>更新Hexo侧边社交链接图标 引入iconfont阿里巴巴矢量图标库</title>
     <url>/archives/3753999883/</url>
     <content><![CDATA[<p>简简单单 在博客主题的自定义css文件引入图标链接即可 记得CTRL+F5刷新哦</p>
@@ -209,7 +281,7 @@
 
 <h2 id="究极位运算用法收集"><a href="#究极位运算用法收集" class="headerlink" title="究极位运算用法收集"></a>究极位运算用法收集</h2>]]></content>
       <categories>
-        <category>Codes</category>
+        <category>Algorithm</category>
       </categories>
   </entry>
   <entry>
