@@ -6,7 +6,7 @@
     <content><![CDATA[<p>寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。<br>题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。</p>
 <a id="more"></a>
 <p><a href="https://www.acwing.com/user/myspace/index/34956/" target="_blank" rel="noopener">欢迎来Acwing围观我</a><br>点击标题，进入题目。</p>
-<h2 id="AcWing-503-借教室"><a href="#AcWing-503-借教室" class="headerlink" title="AcWing 503. 借教室"></a><a href="https://www.acwing.com/problem/content/505/" target="_blank" rel="noopener">AcWing 503. 借教室</a></h2><p>和 <a href="#AcWing-499-聪明的质监员">AcWing 499. 聪明的质监员</a> 类似的一道题</p>
+<h2 id="AcWing-503-借教室"><a href="#AcWing-503-借教室" class="headerlink" title="AcWing 503. 借教室"></a><a href="https://www.acwing.com/problem/content/505/" target="_blank" rel="noopener">AcWing 503. 借教室</a></h2><p>和 <a href="https://www.acwing.com/problem/content/501/" target="_blank" rel="noopener">AcWing 499. 聪明的质监员</a> 类似的一道题</p>
 <h3 id="二分-差分"><a href="#二分-差分" class="headerlink" title="二分 + 差分"></a>二分 + 差分</h3><p>随着天数推进，被借走的教室越来越多，剩余的教室越来越少，也就是单调递减<br>因此可以使用二分来找到教室不够用的那一天</p>
 <p>接着要处理的就是快速求出每天教室的数量<br>由于是在天数的区间上借教室，也就是对区间进行常数运算<br>考虑使用差分进行借教室的操作，然后求和得出教室数量<br>差分模板：<a href="https://www.acwing.com/problem/content/799/" target="_blank" rel="noopener">AcWing 797. 差分</a><br>$PS$: 前缀和的差分是原数列，差分的前缀和是原数列</p>
 <p>时间复杂度 $O(klog(n))$</p>
