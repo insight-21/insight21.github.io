@@ -1,0 +1,229 @@
+<!DOCTYPE html><html class="appearance-auto" lang="zh"><head><meta charset="UTF-8"><title>Acwing算法进阶指南 0x02 打卡 题解</title><meta name="description" content="如你所见"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/touxiang.jpg"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="学习《算法竞赛进阶指南》中的0x02章 搜索专题包括国内大公司笔试以及noip、acm、蓝桥杯等比赛涉及的绝大部分知识点
+
+
+欢迎来Acwing围观我点击标题，进入题目。
+Acwing 168. 生日蛋糕好难啊
+还是DFS + 剪枝基本思路:枚举 $r$, $h$, 暴搜 $m$ 层, 计算 $S$
+剪枝:
+
+优先选择情况少的: 从大的开始, 所以蛋糕从下往上搜, $r$, $h$ 从大到小枚举,再细化, 先枚举 $r$ 因为计算时 $r$ 是平方级别的, 权重比 $h$大
+取消冗余搜索(无)
+最优性: 当前表面积 $s$ + 最小表面积 $mins \ge ans$, 直接返回
+可行性a. $r$, $h$ 有范围, 不是无脑枚举, 当前体积为总体积减已用体积 $= n - v = \pi * r^2 *.."><meta name="generator" content="Hexo 5.4.0"></head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">insight's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Acwing算法进阶指南 0x02 打卡 题解</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-168-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95"><span class="toc-text">Acwing 168. 生日蛋糕</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%98%E6%98%AFDFS-%E5%89%AA%E6%9E%9D"><span class="toc-text">还是DFS + 剪枝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-164-%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%BB%9F%E8%AE%A1"><span class="toc-text">Acwing 164. 可达性统计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-text">拓扑排序 + 位运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-1"><span class="toc-text">参考代码</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Acwing算法进阶指南 0x02 打卡 题解</h1><time class="has-text-grey" datetime="2021-06-21T04:22:40.352Z">2021-06-21</time><article class="mt-2 post-content"><p>学习《算法竞赛进阶指南》中的0x02章 搜索专题<br>包括国内大公司笔试以及noip、acm、蓝桥杯等比赛涉及的绝大部分知识点</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/user/myspace/index/34956/">欢迎来Acwing围观我</a><br>点击标题，进入题目。</p>
+<h2 id="Acwing-168-生日蛋糕"><a href="#Acwing-168-生日蛋糕" class="headerlink" title="Acwing 168. 生日蛋糕"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/170/">Acwing 168. 生日蛋糕</a></h2><p>好难啊</p>
+<h3 id="还是DFS-剪枝"><a href="#还是DFS-剪枝" class="headerlink" title="还是DFS + 剪枝"></a>还是DFS + 剪枝</h3><p>基本思路:<br>枚举 $r$, $h$, 暴搜 $m$ 层, 计算 $S$</p>
+<p>剪枝:</p>
+<ol>
+<li>优先选择情况少的: 从大的开始, 所以蛋糕从下往上搜, $r$, $h$ 从大到小枚举,<br>再细化, 先枚举 $r$ 因为计算时 $r$ 是平方级别的, 权重比 $h$大</li>
+<li>取消冗余搜索(无)</li>
+<li>最优性: 当前表面积 $s$ + 最小表面积 $mins \ge ans$, 直接返回</li>
+<li>可行性<br>a. $r$, $h$ 有范围, 不是无脑枚举, 当前体积为总体积减已用体积 $= n - v = \pi * r^2 *h$<br>   因为题目要求不计算 $\pi$, 所以 $n - v = r^2 * h$, 当 $h=1$, 可得到最大 $r = \sqrt{n - v}$, 最小 $r =$当前层数 $dep$<br>   因为上层小于下层. 所以最大 $r = min(sqrt(n - v), R[dep + 1] - 1)$<br>   同理 $dep \le h \le min((n - v) / r ^ 2, H[dep + 1] - 1)$<br>b. 当已使用体积 $v$ + 最小体积 $minv \gt n$ 那就不可行<br>c. 最难的一个 不加就 $TLE$<br>   $n - v = \sum_{i = 1}^{i}{r_i ^ 2 * h_i}$<br>   $s_{dep} = \sum_{i = 1}^{i}(2 * r_i * h_i)$ (变化一下) $= 2 * \sum_{i = 1}^{i}(r_i * h_i * R[dep + 1]) / R[dep + 1]$<br>$\ge 2 * \sum_{i = 1}^{i}(r_i^2 * h_i) / R[dep + 1] = 2 * (n - v) / R[dep + 1]$<br>   再加上 $s + s_{dep} &lt; ans = s + 2 * (n - v) / R[dep + 1] &lt; ans$<br>   可得到如果 $2 * (n - v) / r[dep + 1] + s &gt;= ans$ 直接返回<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3>```c++<br>#include<iostream><br>#include<cmath><br>using namespace std;</li>
+</ol>
+<p>const int N = 25, INF = 1e9;<br>int R[N], H[N], minv[N], mins[N];<br>int n, m, ans = INF;</p>
+<p>void dfs(int dep, int v, int s) {<br>    // 剪枝<br>    if (v + minv[dep] &gt; n) return ;<br>    if (s + mins[dep] &gt;= ans) return ;<br>    if (s + 2 * (n - v) / R[dep + 1] &gt;= ans) return ;</p>
+<pre><code>// 出口 更新答案
+if (dep == 0) &#123;
+    if (v == n) ans = s;
+    return ;
+&#125;
+
+// 暴搜部分
+for (int r = min((int)sqrt(n - v), R[dep + 1] - 1); r &gt;= dep; --r) &#123;
+    for (int h = min((n - v) / r / r, H[dep + 1] - 1); h &gt;= dep; --h) &#123;
+        // 记得计算俯视的圆面积 可以在第一层或最后一层加上
+        int t = dep == m ? r * r : 0;
+        R[dep] = r; H[dep] = h;
+        dfs(dep - 1, v + r * r * h, s + 2 * r * h + t);
+    &#125;
+&#125;
+</code></pre>
+<p>}</p>
+<p>int main() {<br>    cin &gt;&gt; n &gt;&gt; m;<br>    // init<br>    for (int i = 1; i &lt;= m; ++i) {<br>        minv[i] = minv[i - 1] + i * i * i;<br>        mins[i] = mins[i - 1] + 2 * i * i;<br>    }<br>    // 边界<br>    R[m + 1] = H[m + 1] = INF;</p>
+<pre><code>dfs(m, 0, 0);
+if (ans == INF) ans = 0;
+cout &lt;&lt; ans;
+
+return 0;
+</code></pre>
+<p>}</p>
+<pre><code>
+## [AcWing 167. 木棒](https://www.acwing.com/problem/content/169/)
+经典剪枝题
+### DFS + 剪枝
+基本思路:
+从切开的木棍中最长length开始枚举最小长度 (因为最小的木棒必定是最长木棍)
+dfs组合木棍 如果当前length可行 直接输出结束
+
+剪枝模板:
+1. 优化搜索顺序(优先搜索情况少的)
+2. 取消冗余搜索
+3. 可行性
+4. 最优性
+
+对应此题:
+1. 短木棍能拼接的情况多 所以按照长度从大到小搜索
+2. 有两根木棍x, y 如果x + y可行, 那y + x也可行, 不需要重复搜索
+   所以需要我们人为规定顺序
+3. a. 明显木棍总和sum 必须能整除当前length 否则不可能把所有木棍拼完
+   b. 如果第一个木棍失败, 可以反证, 则不用再拼(反证 调换顺序)
+   c. 同理, 如果最后一根木棍失败, 也不用再继续搜索
+
+### 参考代码
+```c++
+#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 65;
+
+int sticks[N];
+bool st[N];
+int n, sum, length;
+
+/* 
+u 已拼完整多少木棒
+cur 当前拼接长度
+start 从statr开始枚举木棍
+*/
+bool dfs(int u, int cur, int start) &#123;
+    // 出口 
+    if (u * length == sum) return true;
+    
+    // 如果拼完一根 接着拼
+    if (cur == length) return dfs(u + 1, 0, 0);
+    
+    for (int i = start; i &lt; n; ++i) &#123;
+        if (st[i]) continue;
+        int l = sticks[i];
+        // 超出目标长度
+        if (cur + l &gt; length) continue;
+        
+        st[i] = 1;
+        if (dfs(u, cur + l, start + 1)) return true;
+        st[i] = 0;
+        
+        // 剪枝3 b 如果第一根失败 那此时cur就是0
+        if (!cur) return false;
+        // 剪枝3 c 最后一根失败 也就是cur + l == length这种情况没有返回true
+        if (cur + l == length) return false;
+        // 剪枝2 取消冗余搜索
+        int j = i;
+        while (j &lt; n &amp;&amp; sticks[j] == l) ++j;
+        i = j - 1;
+    &#125;
+    return false;
+&#125;
+
+int main() &#123;
+    while (cin &gt;&gt; n, n) &#123;
+        // reset
+        sum = 0; length = 0;
+        memset(st, false, sizeof st);
+        // input
+        for (int i = 0; i &lt; n; ++i) &#123;
+            cin &gt;&gt; sticks[i];
+            sum += sticks[i];
+        &#125;
+        
+        // 剪枝1 优化搜索顺序 从大到小排序
+        sort(sticks, sticks + n, greater&lt;int&gt;());
+        
+        // 枚举length 从最长木棍开始
+        length = sticks[0];
+        while (1) &#123;
+            // 剪枝3 可行性 a
+            if (sum % length == 0 &amp;&amp; dfs(0, 0, 0)) &#123;
+                cout &lt;&lt; length &lt;&lt; endl;
+                break;
+            &#125;
+            ++length;
+        &#125;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-164-可达性统计"><a href="#Acwing-164-可达性统计" class="headerlink" title="Acwing 164. 可达性统计"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/166/">Acwing 164. 可达性统计</a></h2><p>统计从每个点出发能够到达的点的数量</p>
+<h3 id="拓扑排序-位运算"><a href="#拓扑排序-位运算" class="headerlink" title="拓扑排序 + 位运算"></a>拓扑排序 + 位运算</h3><p>考虑用当前点的下一个点能到达的点 计算当前点能到达的点 也就是从后往前累加<br>累加这一步 可以使用集合的并运算 避免重复计算<br>$f[x] = f[x] \cup f[x.next]$</p>
+<p>条件是 点序列应该是从前往后的 比如 $A-&gt;B-&gt;C$ 这样算出来才是正确的<br>这点可以使用拓扑排序实现</p>
+<p>还有一个问题 如果用集合(二维数组)记录能到达的点<br>$(3 * 10^4) ^ 2 = 9 * 10 ^ 8$<br>内存 = $sizeof(int) * 9 * 10 ^ 8 = 3600M?$<br>爆内存了(题目最大内存256M)</p>
+<p>因此考虑位运算压内存 使用<code>int</code> 每个<code>int</code>32位<br>$3600 / 32 = 112.5M$ ok</p>
+<p>思路:</p>
+<ol>
+<li>使用邻接表(链式前向星)</li>
+<li>topsort</li>
+<li>bitset位运算实现并运算</li>
+</ol>
+<h3 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;bitset&gt;
+#include&lt;queue&gt;
+using namespace std;
+
+const int N = 30010;
+
+int n, m;
+int h[N], e[N], nxt[N], idx;
+int d[N], seq[N]; // 入度 topsort之后的序列
+bitset&lt;N&gt; f[N]; // 每一个bieset都是一个集合
+
+void add(int a, int b) &#123;
+    e[idx] = b, nxt[idx] = h[a], h[a] = idx++;
+&#125;
+
+void topSort() &#123;
+    queue&lt;int&gt; q;
+    // 注意 点最小是1
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (!d[i]) &#123;
+            q.push(i);
+        &#125;
+    &#125;
+    int k = 0; // seq序列的大小
+    while (q.size()) &#123;
+        int t = q.front(); q.pop();
+        
+        seq[k++] = t;
+        
+        for (int i = h[t]; ~i; i = nxt[i]) &#123;
+            int j = e[i];
+            // 访问一次 入度减一
+            if (--d[j] == 0) q.push(j);
+        &#125;
+    &#125;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(h, -1, sizeof h);
+    
+    for (int i = 0, a, b; i &lt; m; ++i) &#123;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a, b);
+        ++d[b];
+    &#125;
+    
+    topSort();
+    
+    // 并运算
+    // 需要从后往前计算 否则会少
+    for (int i = n - 1; ~i; --i) &#123;
+        int j = seq[i];
+        // 自身算一个
+        f[j][j] = 1;
+        for (int k = h[j]; ~k; k = nxt[k]) &#123;
+            f[j] |= f[e[k]];
+        &#125;
+    &#125;
+    
+    for (int i = 1; i &lt;= n; ++i) cout &lt;&lt; f[i].count() &lt;&lt; endl;
+    
+    return 0;
+&#125;
+</code></pre>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/archives/2940978202/" title="Acwing寒假每日一题(入门组) 打卡记录 题解"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Acwing寒假每日一题(入门组) 打卡记录 题解</span></a><a class="button is-default" href="/archives/1505869346/" title="Acwing算法进阶指南 0x00 &amp; 0x01 打卡 题解"><span class="has-text-weight-semibold">Next: Acwing算法进阶指南 0x00 &amp; 0x01 打卡 题解</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/insight-21"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> insight 2021</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/post.js"></script></body></html>

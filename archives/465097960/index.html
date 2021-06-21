@@ -1,0 +1,834 @@
+<!DOCTYPE html><html class="appearance-auto" lang="zh"><head><meta charset="UTF-8"><title>Acwing寒假每日一题(提高组) 打卡记录 题解</title><meta name="description" content="如你所见"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/touxiang.jpg"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="(活动已结束)寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。
+
+
+欢迎来Acwing围观我点击标题，进入题目。
+AcWing 3240. 压缩编码今天不是图论题了
+哈夫曼树变成区间DP具体可以看我在Acwing写的题解, 欢迎关注!AcWing 3240. 压缩编码 哈夫曼树与区间DP的区别+绘图理解
+AcWing 3250. 通信网络又是一道很经典的图论题, dfs标记状态
+DFS + 标记状态使用一个st[i][j]数组, 表示 $i$ 到 $j$ 是否连通建立好图之后, dfs跑一遍每次记录当前点和父节点 标记两个点的状态为连通两个点的关系只访问一次最后检查一下状态数组中, 两个点是否连通即可时间复杂度 $O.."><meta name="generator" content="Hexo 5.4.0"></head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">insight's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Acwing寒假每日一题(提高组) 打卡记录 题解</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-3240-%E5%8E%8B%E7%BC%A9%E7%BC%96%E7%A0%81"><span class="toc-text">AcWing 3240. 压缩编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E5%8F%98%E6%88%90%E5%8C%BA%E9%97%B4DP"><span class="toc-text">哈夫曼树变成区间DP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-3250-%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9C"><span class="toc-text">AcWing 3250. 通信网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS-%E6%A0%87%E8%AE%B0%E7%8A%B6%E6%80%81"><span class="toc-text">DFS + 标记状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-3215-%E7%BD%91%E7%BB%9C%E5%BB%B6%E6%97%B6"><span class="toc-text">AcWing 3215. 网络延时</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E8%BF%9C%E7%82%B9%E5%AF%B9"><span class="toc-text">最远点对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-1"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-3205-%E6%9C%80%E4%BC%98%E9%85%8D%E9%A4%90"><span class="toc-text">AcWing 3205. 最优配餐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%BA%90BFS"><span class="toc-text">多源BFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-2"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-3195-%E6%9C%89%E8%B6%A3%E7%9A%84%E6%95%B0"><span class="toc-text">AcWing 3195. 有趣的数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E4%BD%8DDP"><span class="toc-text">数位DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-3"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-730-%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%B7%B3%E8%B7%83%E9%97%AE%E9%A2%98"><span class="toc-text">AcWing 730. 机器人跳跃问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86"><span class="toc-text">二分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-4"><span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83-%E5%8F%8D%E5%90%91%E6%80%9D%E8%80%83"><span class="toc-text">贪心(反向思考)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-5"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-507-%E7%A7%AF%E6%9C%A8%E5%A4%A7%E8%B5%9B"><span class="toc-text">AcWing 507. 积木大赛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%AE%E5%88%86-%E8%B4%AA%E5%BF%83"><span class="toc-text">差分 + 贪心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-6"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-148-%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90"><span class="toc-text">AcWing 148. 合并果子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91"><span class="toc-text">哈夫曼树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-7"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-496-%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91"><span class="toc-text">AcWing 496. 机器翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97-%E5%93%88%E5%B8%8C"><span class="toc-text">队列 + 哈希</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-8"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-211-%E8%AE%A1%E7%AE%97%E7%B3%BB%E6%95%B0"><span class="toc-text">AcWing 211. 计算系数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%A1%B9%E5%BC%8F%E5%AE%9A%E7%90%86-%E9%80%86%E5%85%83"><span class="toc-text">二项式定理 + 逆元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-9"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-1262-%E9%B1%BC%E5%A1%98%E9%92%93%E9%B1%BC"><span class="toc-text">AcWing 1262. 鱼塘钓鱼</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E6%9E%9A%E4%B8%BE-%E5%A0%86"><span class="toc-text">暴力枚举 + 堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-10"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-257-%E5%85%B3%E6%8A%BC%E7%BD%AA%E7%8A%AF"><span class="toc-text">AcWing 257. 关押罪犯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-text">排序 + 并查集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-11"><span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86-%E6%9F%93%E8%89%B2%E4%BA%8C%E5%88%86%E5%9B%BE%E5%88%A4%E6%96%AD"><span class="toc-text">二分 + 染色二分图判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-12"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-503-%E5%80%9F%E6%95%99%E5%AE%A4"><span class="toc-text">AcWing 503. 借教室</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86-%E5%B7%AE%E5%88%86"><span class="toc-text">二分 + 差分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-13"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-499-%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98"><span class="toc-text">AcWing 499. 聪明的质监员</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86-%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-text">二分 + 前缀和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-14"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AcWing-125-%E8%80%8D%E6%9D%82%E6%8A%80%E7%9A%84%E7%89%9B"><span class="toc-text">AcWing 125. 耍杂技的牛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-%E8%B4%AA%E5%BF%83"><span class="toc-text">排序 + 贪心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-15"><span class="toc-text">参考代码</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Acwing寒假每日一题(提高组) 打卡记录 题解</h1><time class="has-text-grey" datetime="2021-06-21T04:22:40.372Z">2021-06-21</time><article class="mt-2 post-content"><p>(活动已结束)<br>寒假组队学习算法，闫老师带领大家每日刷一道经典算法题。<br>题目难度：中等偏上，题目选自CodeForces、ACM、NOIP、蓝桥杯等比赛真题。</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/user/myspace/index/34956/">欢迎来Acwing围观我</a><br>点击标题，进入题目。</p>
+<h2 id="AcWing-3240-压缩编码"><a href="#AcWing-3240-压缩编码" class="headerlink" title="AcWing 3240. 压缩编码"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3243/">AcWing 3240. 压缩编码</a></h2><p>今天不是图论题了</p>
+<h3 id="哈夫曼树变成区间DP"><a href="#哈夫曼树变成区间DP" class="headerlink" title="哈夫曼树变成区间DP"></a>哈夫曼树变成区间DP</h3><p>具体可以看我在Acwing写的题解, 欢迎关注!<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/36694/">AcWing 3240. 压缩编码 哈夫曼树与区间DP的区别+绘图理解</a></p>
+<h2 id="AcWing-3250-通信网络"><a href="#AcWing-3250-通信网络" class="headerlink" title="AcWing 3250. 通信网络"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3253/">AcWing 3250. 通信网络</a></h2><p>又是一道很经典的图论题, dfs标记状态</p>
+<h3 id="DFS-标记状态"><a href="#DFS-标记状态" class="headerlink" title="DFS + 标记状态"></a>DFS + 标记状态</h3><p>使用一个<code>st[i][j]</code>数组, 表示 $i$ 到 $j$ 是否连通<br>建立好图之后, dfs跑一遍<br>每次记录当前点和父节点 标记两个点的状态为连通<br>两个点的关系只访问一次<br>最后检查一下状态数组中, 两个点是否连通即可<br>时间复杂度 $O(N^2)$</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+const int N = 1005, M = 1e5 + 5;
+int h[N], to[M], nxt[M], idx;
+bool st[N][N];
+
+void add(int u, int v) &#123;
+    to[idx] = v;
+    nxt[idx] = h[u];
+    h[u] = idx++;
+&#125;
+/*
+每次记录当前点和父节点 标记两个点的状态为连通
+两个点的关系只访问一次
+*/
+void dfs(int fa, int x) &#123;
+    if (st[fa][x]) return ;
+    st[fa][x] = 1;
+    for (int i = h[x]; ~i; i = nxt[i]) &#123;
+        int j = to[i];
+        dfs(fa, j);
+    &#125;
+&#125;
+
+int main() &#123;
+    memset(h, -1, sizeof h);
+    
+    int n, m; cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 0; i &lt; m; ++i) &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a, b);
+    &#125;
+    
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        dfs(i, i);
+    &#125;
+    
+    /* 检查两两之间是否连通 */
+    int ans = 0;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        bool flag = true;
+        for (int j = 1; j &lt;= n; ++j) &#123;
+            if (!st[i][j] &amp;&amp; !st[j][i]) &#123;
+                flag = false;
+                break;
+            &#125;
+        &#125;
+        ans += flag;
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-3215-网络延时"><a href="#AcWing-3215-网络延时" class="headerlink" title="AcWing 3215. 网络延时"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3218/">AcWing 3215. 网络延时</a></h2><p>经典图论板子题</p>
+<h3 id="最远点对"><a href="#最远点对" class="headerlink" title="最远点对"></a>最远点对</h3><p>这道题本质上是求图中最远的两个点, 转到树上就变求最远的两个叶子节点, 最远的两个点必然是叶子节点<br>建图用邻接表, 在这里我使用链式前向星建立邻接表<br>然后dfs遍历邻接表, 每次求出当前点的最远和次远叶子节点距离<br>这两个点就是当前点能达到的最远点对, 两者之和就是最远距离<br>遍历的时候取最大值即可</p>
+<h3 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+const int N = 2e4 + 5;
+int h[N], nxt[N], to[N], idx;
+int ans;
+
+void add(int u, int v) &#123;
+    to[idx] = v;
+    nxt[idx] = h[u];
+    h[u] = idx++;
+&#125;
+
+int dfs(int u) &#123;
+    // 定义最远和次远叶节点距离
+    int d1 = 0, d2 = 0;
+    for (int i = h[u]; ~i; i = nxt[i]) &#123;
+        int j = to[i];
+        int t = dfs(j);
+        if (t &gt;= d1) d2 = d1, d1 = t;
+        else if (t &gt; d2) d2 = t;
+    &#125;
+    ans = max(ans, d1 + d2);
+    
+    return d1 + 1;
+&#125;
+
+int main() &#123;
+    memset(h, -1, sizeof h);
+    
+    int n, m; cin &gt;&gt; n &gt;&gt; m;
+    int len = n + m;
+    
+    // 因为根节点从1开始 所以输入直接从2开始
+    for (int i = 2, x; i &lt;= len; ++i) &#123;
+        cin &gt;&gt; x;
+        add(x, i);
+    &#125;
+    
+    dfs(1);
+    
+    cout &lt;&lt; ans &lt;&lt; endl;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-3205-最优配餐"><a href="#AcWing-3205-最优配餐" class="headerlink" title="AcWing 3205. 最优配餐"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3208/">AcWing 3205. 最优配餐</a></h2><p>开始做图论咯</p>
+<h3 id="多源BFS"><a href="#多源BFS" class="headerlink" title="多源BFS"></a>多源BFS</h3><p>可以以分店/客户坐标作为起点, 然后计算所有点到所有分店/客户的最小距离<br>最后客户到分店/分店到客户的距离 * 订单数即可<br>计算最短距离可以用bfs扩散, 快一点</p>
+<h3 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+
+const int N = 1e3+5;
+const int M = 1e6+5;
+int customer[M][2], amount[M]; // 客户坐标 订单数
+bool red[N][N]; // 不能通过的点
+int dis[N][N]; //用来记录每个点到分店的最小距离
+int n, m, k, d;
+queue&lt;pii&gt; q;
+
+void bfs() &#123;
+    int dxy[4][2] = &#123;&#123;-1, 0&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;0, 1&#125;&#125;;
+    
+    while (q.size()) &#123;
+        auto t = q.front(); q.pop();
+        
+        for (int i = 0, tx, ty; i &lt; 4; ++i) &#123;
+            tx = t.first + dxy[i][0];
+            ty = t.second + dxy[i][1];
+            // 注意数据是从1开始
+            if (tx &lt; 1 || tx &gt; n || ty &lt; 1 || ty &gt; n || red[tx][ty]) continue;
+            if (dis[tx][ty] &gt; dis[t.first][t.second] + 1) &#123;
+                dis[tx][ty] = dis[t.first][t.second] + 1;
+                q.push(&#123;tx, ty&#125;);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+int main() &#123;
+    // 输入数据 防止TLE
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; d;
+    
+    memset(dis, 0x3f, sizeof dis);
+    // 把所有分店作为起点去bfs
+    for (int i = 0, x, y; i &lt; m; ++i) &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        q.push(&#123;x, y&#125;);
+        dis[x][y] = 0;
+    &#125;
+    for (int i = 0; i &lt; k; ++i) &#123;
+        cin &gt;&gt; customer[i][0] &gt;&gt; customer[i][1] &gt;&gt; amount[i];
+    &#125;
+    for (int i = 0, x, y; i &lt; d; ++i) &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        red[x][y] = 1;
+    &#125;
+    
+    // bfs得到所有点的距离
+    bfs();
+    
+    // 输出最小距离 * 订单数
+    long long ans = 0;
+    for (int i = 0; i &lt; k; ++i) &#123;
+        ans += dis[customer[i][0]][customer[i][1]] * amount[i];
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-3195-有趣的数"><a href="#AcWing-3195-有趣的数" class="headerlink" title="AcWing 3195. 有趣的数"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3198/">AcWing 3195. 有趣的数</a></h2><p>难得的动态规划</p>
+<h3 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h3><p>按照规则<br>最高位不能为0, 因此第一位不会为0<br>0必须在1前面 所以第一位也不会为1<br>2必须在3前面 所以第一位不会为3<br>因此初始状态只能是2<br>确定初始状态后, 就能确定后续状态如下<br>0: 用了2, 还剩0, 1, 3, 初始状态<br>1: 用了2, 0, 还剩1, 3<br>2: 用了2, 3, 还剩0, 1<br>3: 用了2, 0, 1, 还剩3<br>4: 用了2, 0, 3, 还剩1<br>5: 用了2, 0, 3, 1<br>一共六种状态<br>其中状态转移为<br>0-&gt;0 0-&gt;1 0-&gt;2<br>1-&gt;1 1-&gt;3 1-&gt;4<br>2-&gt;2 2-&gt;4 2-&gt;5<br>3-&gt;3 3-&gt;5<br>4-&gt;4 4-&gt;5<br>5-&gt;5</p>
+<p>绘制成图如下<br><img src="https://s3.ax1x.com/2021/02/16/ycAWlQ.png"><br>比如, 指向状态 $0123$ 圈圈的箭头表示，$0123$ 状态只能由本身及 $012$ 和 $023$ 状态转移过来<br>时间复杂度 $O(N)$</p>
+<h3 id="参考代码-3"><a href="#参考代码-3" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+typedef long long ll;
+
+ll f[1005][6];
+ll mod = 1e9 + 7;
+ll a2, a02, a23, a012, a023, a0123;
+ll t2, t02, t23, t012, t023, t0123;
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    // 一开始每种状态的答案都为0 还没使用
+    for (int i = 0; i &lt; 6; ++i) f[0][i] = 0;
+    
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        // 乘以2 表示可以填两种
+        ll j = i - 1;
+        f[i][0] = 1;
+        f[i][1] = (f[j][0] + f[j][1] * 2) % mod;
+        f[i][2] = (f[j][0] + f[j][2]) % mod;
+        f[i][3] = (f[j][1] + f[j][3] * 2) % mod;
+        f[i][4] = (f[j][1] + f[j][2] + f[j][4] * 2) % mod;
+        f[i][5] = (f[j][3] + f[j][4] + f[j][5] * 2) % mod;
+    &#125;
+    cout &lt;&lt; f[n][5];
+    
+    /* 优化做法 */
+    // 由于每次只用到 i - 1 因此可以优化成滚动更新
+    a2 = 1;
+    for (int i = 1; i &lt; n; ++i) &#123;
+        // 使用上一次 也就是 i - 1的数据
+        t2 = a2, t02 = a02, t23 = a23, t012 = a012, t023 = a023, t0123 = a0123;
+        a2 = t2 % mod;
+        a02 = (t2 + t02 * 2) % mod;
+        a23 = (t2 + t23) % mod;
+        a012 = (t02 + t012 * 2) % mod;
+        a023 = (t02 + t23 + t023 * 2) % mod;
+        a0123 = (t012 + t023 + t0123 * 2) % mod;
+    &#125;
+    cout &lt;&lt; a0123;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-730-机器人跳跃问题"><a href="#AcWing-730-机器人跳跃问题" class="headerlink" title="AcWing 730. 机器人跳跃问题"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/732/">AcWing 730. 机器人跳跃问题</a></h2><p>一看到最小就想到二分, 其实这道题和上道题搭积木一样, 也可以反向思考</p>
+<h3 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h3><p>二分值, 然后每次按照规则走一遍即可<br>不过这道题有个小细节, 如果你走到了序列的最大值, 按照规则, 你接下去只增不减, 肯定能到达终点, 这个时候直接返回即可<br>时间复杂度 $O(NlogN)$</p>
+<h3 id="参考代码-4"><a href="#参考代码-4" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+const int N = 1e5+5;
+int h[N];
+int n, maxv;
+
+bool check(int e) &#123;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        e += e - h[i];
+        if (e &gt;= maxv) return false;
+        if (e &lt; 0) return true;
+    &#125;
+    return false;
+&#125;
+
+int main() &#123;
+    /* 做法一 二分 */
+    cin &gt;&gt; n;
+    
+    for (int i = 0; i &lt; n; ++i) cin &gt;&gt; h[i], maxv = max(maxv, h[i]);
+
+    int l = 0, r = 1e5;
+    while (l &lt; r) &#123;
+        int mid = l + r &gt;&gt; 1;
+        if (check(mid)) l = mid + 1;
+        else r = mid;
+    &#125;
+    cout &lt;&lt; l;
+    
+    return 0;
+&#125;
+</code></pre>
+<h3 id="贪心-反向思考"><a href="#贪心-反向思考" class="headerlink" title="贪心(反向思考)"></a>贪心(反向思考)</h3><p>按照最优策略考虑, 如果走到终点, 能量刚好用完, 那一定是要求的最小值<br>所以逆序遍历, 按照规则反过来求最初值<br>注意题目要求向上取整, 对规则进行逆运算的时候, 用到了除法, 所以要对奇数偶数分别处理<br>时间复杂度 $O(N)$</p>
+<h3 id="参考代码-5"><a href="#参考代码-5" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+const int N = 1e5+5;
+int h[N], n;
+
+int main() &#123;    
+    /* 做法二 贪心 */
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; ++i) cin &gt;&gt; h[i];
+    
+    int init = 0;
+    for (int i = n - 1, t; ~i; --i) &#123;
+        t = init + h[i];
+        // 用位运算代替除法 奇数就加1 偶数不需要
+        init = (t &gt;&gt; 1) + (t &amp; 1);
+    &#125;
+    cout &lt;&lt; init;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-507-积木大赛"><a href="#AcWing-507-积木大赛" class="headerlink" title="AcWing 507. 积木大赛"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/509/">AcWing 507. 积木大赛</a></h2><p>差分的拓展题, 逆向思考</p>
+<h3 id="差分-贪心"><a href="#差分-贪心" class="headerlink" title="差分 + 贪心"></a>差分 + 贪心</h3><p>区间操作, 很容易联想到差分处理<br>题目要求从0变到目标序列, 我们可以反向思考, 从目标序列变成0<br>也就是在区间上$[L, R]$减一, 转移到差分数组, 就是 $b[L] -= 1, b[R + 1] += 1$<br>又因为全0序列的差分序列也是全0, 也就是问你多少次区间操作能把差分序列变为0<br>既然要减一变为0, 对于差分数组中每个 $b_i &gt; 0$, 至少需要减去 $b_i$次<br>所以<strong>总次数至少是差分序列中所有正数之和</strong><br>那有没有办法可以做到操作次数一定是所有正数之和?<br>可以这样操作: 从后往前操作，如果当前的 $b_i&gt;0$，则将其减1，并将其后的某个负数加1<br>证明如下:<br>由于差分数组的所有后缀 $\displaystyle\sum_{i=k}^{n}b_i = -h_k &lt;= 0$<br>因此在所有后缀组合中, 正数的个数肯定小于负数, 所以总能找到对应的负数消除掉所有正数</p>
+<h3 id="参考代码-6"><a href="#参考代码-6" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+const int N = 1e5 + 5;
+int a[N];
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; a[i];
+    
+    int ans = 0;
+    for (int i = n; i; --i) ans += max(0, a[i] - a[i - 1]);
+    cout &lt;&lt; ans; 
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-148-合并果子"><a href="#AcWing-148-合并果子" class="headerlink" title="AcWing 148. 合并果子"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/150/">AcWing 148. 合并果子</a></h2><p>拓展题: <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">AcWing 282. 石子合并</a><br>两道题看起来很相似, 但是石子合并多了一个限制, 就变成了不一样的题</p>
+<h3 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h3><p>理解题意, 就可以发现其实是哈夫曼树的模板题<br>哈夫曼树, 就是每次去所有数据里最小的两个, 合并成一个, 最后只剩下一个数据</p>
+<h3 id="参考代码-7"><a href="#参考代码-7" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;queue&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; q;
+    
+    int t;
+    while (n--) &#123;
+        cin &gt;&gt; t;
+        q.push(t);
+    &#125;
+    
+    int ans = 0;
+    while (q.size() &gt; 1) &#123;
+        t = q.top(); q.pop();
+        t += q.top(); q.pop();
+        ans += t;
+        q.push(t);
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-496-机器翻译"><a href="#AcWing-496-机器翻译" class="headerlink" title="AcWing 496. 机器翻译"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/498/">AcWing 496. 机器翻译</a></h2><p>一道模拟题 让我想起了万恶的面试算法LRU</p>
+<h3 id="队列-哈希"><a href="#队列-哈希" class="headerlink" title="队列 + 哈希"></a>队列 + 哈希</h3><p>是否在内存, 用一个哈希标记即可<br>要清空最早的元素, 用队列<br>时间复杂度 $O(N)$<br>如果是Java, 直接反手一个LinkedHashMap(然后面试官就让你等通知</p>
+<h3 id="参考代码-8"><a href="#参考代码-8" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;queue&gt;
+
+using namespace std;
+
+bool cache[1005];
+queue&lt;int&gt; q;
+int ans;
+int capacity, n;
+
+/*
+如果内存已存在 则直接返回
+如果不存在 需要插入
+插入后需要检查大小
+*/
+void put(int x) &#123;
+    if (cache[x]) return ;
+    q.push(x);
+    cache[x] = 1;
+    ++ans;
+    if (q.size() &gt; capacity) &#123;
+        int t = q.front(); q.pop();
+        cache[t] = 0;
+    &#125;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; capacity &gt;&gt; n;
+    
+    for (int i = 0, t; i &lt; n; ++i) &#123;
+        cin &gt;&gt; t;
+        put(t);
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-211-计算系数"><a href="#AcWing-211-计算系数" class="headerlink" title="AcWing 211. 计算系数"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/213/">AcWing 211. 计算系数</a></h2><p>是我不熟悉的数学题(doge</p>
+<h3 id="二项式定理-逆元"><a href="#二项式定理-逆元" class="headerlink" title="二项式定理 + 逆元"></a>二项式定理 + 逆元</h3><p>和这道题有关的有一个二项式定理<br>$(a+b)^k = \displaystyle\sum_{i=0}^{k}{C_k^i a^i b^{k-i}}$<br>通过这个定理, 我们可以求出题目要求的 $x^n, y^m$的系数就是 $C_k^n a^n b^m$<br>现在只需要想出怎么计算即可</p>
+<ul>
+<li>$a^n \enspace b^m$ 由于题目给了模数 很容易想到 用快速幂解决</li>
+<li>$C_k^n = \frac{k * (k-1) * … * (k - n + 1)} {1 * 2 * … * n}$ 涉及到除法取模 而乘法逆元就是为此而生的</li>
+<li>乘法逆元 由于模数$10007$是质数 因此可以借助费马小定理 即 $b$ 的逆元 $inv(b) = b^{mod - 2}$<h3 id="参考代码-9"><a href="#参考代码-9" class="headerlink" title="参考代码"></a>参考代码</h3>```c++<br>#include<iostream><br>using namespace std;</li>
+</ul>
+<p>int mod = 10007;</p>
+<p>int ksm(int a, int b) {<br>    int ret = 1;<br>    a %= mod;<br>    while (b) {<br>        if (b &amp; 1) ret = ret * a % mod;<br>        a = a * a % mod;<br>        b &gt;&gt;= 1;<br>    }<br>    return ret;<br>}</p>
+<p>int main() {<br>    int a, b, k, n, m;<br>    cin &gt;&gt; a &gt;&gt; b &gt;&gt; k &gt;&gt; n &gt;&gt; m;</p>
+<pre><code>//C(k, n) * a^n * b^m
+//a^n  b^m 使用快速幂
+int ans = ksm(a, n) * ksm(b, m) % mod;
+
+// C(k, n) = (k * k-1 * ... * 1) / (1 * 2 * ... * n);
+// 一边乘一边除 因为mod=10007是质数 除法可以用乘法逆元
+for (int i = 1, j = k; i &lt;= n; ++i, --j) &#123;
+    ans = ans * j % mod;
+    ans = ans * ksm(i, 10005) % mod;
+&#125;
+cout &lt;&lt; ans;
+
+return 0;
+</code></pre>
+<p>}</p>
+<pre><code>
+## [AcWing 312. 乌龟棋](https://www.acwing.com/problem/content/314/)
+说实话只能想到暴力, 因为数据也不大, 顶多 $40^4$
+然后没想到这叫线性DP(?迷惑)
+
+### 暴力/线性DP
+直接对4种卡片的所有可能性进行枚举
+可以利用动态规划的状态表示
+用 $f[Card_A][Card_B][Card_C][Card_D]$ 来表示第 $i$ 种卡片使用了 $Card_i$ 张的最大分数
+以使用一张 $A$ 卡为例, 分数的计算公式是 $f[Card_A - 1][Card_B][Card_C][Card_D] + score[A + 2 * B + 3 * C + 4 * D]$
+时间复杂度 $O(40^4)$
+
+### 参考代码
+注意数组不要开太大, 4次方一下子就超出空间限制了
+```c++
+#include&lt;iostream&gt;
+using namespace std;
+
+const int N = 355, M = 45;
+int f[M][M][M][M];
+int score[N], b[5];
+
+int main() &#123;
+    int n , m; cin &gt;&gt; n &gt;&gt; m;
+    
+    for(int i = 0; i &lt; n; ++i) cin &gt;&gt; score[i];
+    
+    for (int i = 0, t; i &lt; m; ++i) &#123;
+        cin &gt;&gt; t;
+        ++b[t];
+    &#125;
+    
+    for (int A = 0; A &lt;= b[1]; A ++ )
+        for (int B = 0; B &lt;= b[2]; B ++ )
+            for (int C = 0; C &lt;= b[3]; C ++ )
+                for (int D = 0; D &lt;= b[4]; D ++ ) &#123;
+                    int t = score[A + B * 2 + C * 3 + D * 4];
+                    int &amp;v = f[A][B][C][D];
+                    v = t;
+                    if (A) v = max(v, f[A - 1][B][C][D] + t);
+                    if (B) v = max(v, f[A][B - 1][C][D] + t);
+                    if (C) v = max(v, f[A][B][C - 1][D] + t);
+                    if (D) v = max(v, f[A][B][C][D - 1] + t);
+                &#125;
+    cout &lt;&lt; f[b[1]][b[2]][b[3]][b[4]];
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-1262-鱼塘钓鱼"><a href="#AcWing-1262-鱼塘钓鱼" class="headerlink" title="AcWing 1262. 鱼塘钓鱼"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1264/">AcWing 1262. 鱼塘钓鱼</a></h2><p>感觉是有动态规划解法的, 但是只能想到暴力枚举的做法, 顶多加个堆优化一下<br>待更新更好的解法</p>
+<h3 id="暴力枚举-堆"><a href="#暴力枚举-堆" class="headerlink" title="暴力枚举 + 堆"></a>暴力枚举 + 堆</h3><p>枚举只在前 $i$ 个鱼塘钓鱼, 然后求得到的钓鱼量, 然后取最大值<br>求得到的钓鱼量, 用总的钓鱼时间减去移动时间得到在钓鱼的时间, 然后枚举在钓鱼的每一分钟<br>最优策略是, 每分钟只去能得到最多鱼的池塘钓鱼, 最后把得到的答案更新<br>移动时间可以用前缀和处理, 快速得到前 $i$ 个鱼塘的移动时间<br>求每分钟最多鱼的鱼塘, 可以用堆</p>
+<h3 id="参考代码-10"><a href="#参考代码-10" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;queue&gt;
+
+using namespace std;
+typedef pair&lt;int, int&gt; pii;
+
+const int N = 105;
+
+//第一分钟鱼数量 每分钟减少量 去下一个鱼塘的时间
+int a[N], d[N], s[N];
+
+int main() &#123;
+    int T, n; cin &gt;&gt; n;
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; a[i];
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; d[i];
+    //因为要快速求出 i 个鱼塘的移动时间 所以用前缀和
+    for (int i = 2; i &lt;= n; ++i) cin &gt;&gt; s[i], s[i] += s[i - 1];
+    cin &gt;&gt; T;
+    
+    int ans = 0;
+    //暴力枚举 只在前i个鱼塘钓鱼得到的鱼数量
+    for (int i = 1; i &lt;= n &amp;&amp; s[i] &lt;= T; ++i) &#123;
+        //因为每次要遍历这i个鱼塘 取得最大值
+        //所以用堆来优化一下
+        priority_queue&lt;pii&gt; q;
+        for (int j = 1; j &lt;= i; ++j) q.push(&#123;a[j], d[j]&#125;);
+        //前i个鱼塘的鱼数量 以及除去移动时间的钓鱼总时间
+        int tans = 0, t = T - s[i];
+        //枚举在钓鱼的每一分钟
+        for (int j = 1; j &lt;= t; ++j) &#123;
+            auto p = q.top(); q.pop();
+            if (p.first &lt;= 0) break;
+            tans += p.first; //每分钟的钓鱼量
+            p.first -= p.second; //每分钟减少钓鱼量
+            q.push(p);
+        &#125;
+        ans = max(ans, tans);
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-257-关押罪犯"><a href="#AcWing-257-关押罪犯" class="headerlink" title="AcWing 257. 关押罪犯"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/259/">AcWing 257. 关押罪犯</a></h2><p>把罪犯看作点, 怒气值看作边权, 就是图论题.</p>
+<p>这题有两个做法, 是做完能得到很大收获的一道题.<br>染色二分图的判断模板: <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/862">AcWing 860. 染色法判定二分图</a><br>并查集模板: <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/240/">Acwing 238. 银河英雄传说</a></p>
+<h3 id="排序-并查集"><a href="#排序-并查集" class="headerlink" title="排序 + 并查集"></a>排序 + 并查集</h3><p>既然题目要求最小的怒气值, 那么干脆按照怒气值排序, 然后依次把两个罪犯分到两个监狱<br>如果做不到, 由于边权的有序性(?)，显然当前的怨气值就是答案中要求的最小怨气值<br>可以把放到同一个监狱这个操作, 看成并查集的合并<br>问题在于, 由于两个监狱两个罪犯, 会有两种合并可能</p>
+<ol>
+<li>$a$ 罪犯分到 $X$ 监狱, $b$ 罪犯分到 $Y$ 监狱</li>
+<li>$a$ 罪犯分到 $Y$ 监狱, $b$ 罪犯分到 $X$ 监狱</li>
+</ol>
+<p>解决方法为, 先不急着合并, 只保存两者的相对关系, 表示两者不在同一个监狱<br>等到下次出现新的关系比如 $a$ 和 $c$, 因为最优策略是放到不同监狱, 也就是说 $c$ 会被放到和 $b$ 同一个监狱<br>这个时候把 $b$ 和 $c$ 合并即可<br>时间复杂度$O(NlogN)$, 此处 $N$ 为边数</p>
+<h3 id="参考代码-11"><a href="#参考代码-11" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+const int N = 2e4 + 5, M = 1e5 + 5;
+int p[N]; // 并查集的父节点
+int opp[N];
+
+struct edge &#123;
+    int a, b, c;
+    
+    //重写排序规则
+    bool operator &lt; (const edge &amp;o) const &#123;
+        return c &gt; o.c;
+    &#125;
+&#125; e[M];
+
+int find(int x) &#123;
+    return p[x] == x ? x : p[x] = find(p[x]);
+&#125;
+
+void merge(int a, int b) &#123;
+    int x = find(a), y = find(b);
+    p[x] = y;
+&#125;
+
+int main() &#123;
+    int n, m; cin &gt;&gt; n &gt;&gt; m;
+    
+    for (int i = 0; i &lt; m; ++i) &#123;
+        cin &gt;&gt; e[i].a &gt;&gt; e[i].b &gt;&gt; e[i].c;
+    &#125;
+    
+    sort(e, e + m);
+    
+    //初始化父节点数组
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        p[i] = i;
+    &#125;
+    
+    for (int i = 0; i &lt; m; ++i) &#123;
+        int a = find(e[i].a), b = find(e[i].b);
+        //如果两个的父节点相同 即监狱相同 说明此时冲突
+        if (a == b) &#123;
+            cout &lt;&lt; e[i].c &lt;&lt; endl;
+            return 0;
+        &#125;
+        
+        //如果两者不存在相对关系
+        if (!opp[a]) opp[a] = b;
+        //如果有相对关系 则与相对的点合并
+        else merge(opp[a], b);
+        
+        //同理
+        if (!opp[b]) opp[b] = a;
+        else merge(opp[b], a);
+    &#125;
+    
+    //没有则输出0
+    cout &lt;&lt; 0 &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<h3 id="二分-染色二分图判断"><a href="#二分-染色二分图判断" class="headerlink" title="二分 + 染色二分图判断"></a>二分 + 染色二分图判断</h3><p>分成两个监狱, 可以想到用二分图<br>要求最大值最小, 可以用二分怒气值, 如果当前怒气值可行, 那说明更小的也行, 缩小右区间<br>二分怒气值, 然后安排监狱也就是染色二分图, 如果二分图可以染色成功, 就是监狱分配成功, 反之失败.<br>时间复杂度$O((N+M)logC)$, 此处 $N$ 为点数, $M$ 为边数, $C$ 为最大怒气值</p>
+<h3 id="参考代码-12"><a href="#参考代码-12" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+
+const int N = 2e4 + 5, M = 2e5 + 5; //需要开两倍... 不然会死循环
+int h[N], to[M], nxt[M], w[M], cnt; //链式前向星 建立邻接表
+int color[N]; //二分图染色数组
+int n, m;
+
+void add(int a, int b, int c) &#123;
+    w[cnt] = c;
+    to[cnt] = b;
+    nxt[cnt] = h[a];
+    h[a] = cnt++;
+&#125;
+
+bool dfs(int u, int c, int mid) &#123;
+    color[u] = c;
+    for (int i = h[u]; ~i; i = nxt[i]) &#123;
+        //如果边小于等于mid 那么这俩点可以在一个监狱里
+        //只有大于mid时才不能在监狱里 所以可以把小于等于mid的点跳过
+        //相当于小剪枝
+        if (w[i] &lt;= mid) continue;
+        int j = to[i];
+        //如果已经染过色 就不用染了
+        if (color[j]) &#123;
+            //如果颜色和上一个相同
+            if (color[j] == c) return false;
+        &#125;
+        //染下一个点
+        else if (!dfs(j, 3 - c, mid)) return false;
+    &#125;
+    return true;
+&#125;
+
+bool check(int mid) &#123;
+    memset(color, 0, sizeof color);
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (color[i] == 0) &#123;
+            if (!dfs(i, 1, mid)) return false;
+        &#125;
+    &#125;
+    return true;
+&#125;
+
+int main() &#123;
+    memset(h, -1, sizeof h);
+    
+    cin &gt;&gt; n &gt;&gt; m;
+    
+    
+    int a, b, c;
+    while(m--) &#123;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        add(a, b, c);
+        add(b, a, c);
+    &#125;
+    
+    int l = 0, r = 1e9 + 1;
+    while (l &lt; r) &#123;
+        int mid = l + r &gt;&gt; 1;
+        if (check(mid)) r = mid;
+        else l = mid + 1;
+    &#125;
+    cout &lt;&lt; l;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-503-借教室"><a href="#AcWing-503-借教室" class="headerlink" title="AcWing 503. 借教室"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/505/">AcWing 503. 借教室</a></h2><p>和 <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/501/">AcWing 499. 聪明的质监员</a> 类似的一道题</p>
+<h3 id="二分-差分"><a href="#二分-差分" class="headerlink" title="二分 + 差分"></a>二分 + 差分</h3><p>随着天数推进，被借走的教室越来越多，剩余的教室越来越少，也就是单调递减<br>因此可以使用二分来找到教室不够用的那一天</p>
+<p>接着要处理的就是快速求出每天教室的数量<br>由于是在天数的区间上借教室，也就是对区间进行常数运算<br>考虑使用差分进行借教室的操作，然后求和得出教室数量<br>差分模板：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/799/">AcWing 797. 差分</a><br>$PS$: 前缀和的差分是原数列，差分的前缀和是原数列</p>
+<p>时间复杂度 $O(klog(n))$</p>
+<h3 id="参考代码-13"><a href="#参考代码-13" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+typedef long long ll;
+const int N = 1e6 + 5;
+int r[N], d[N], st[N], ed[N];
+ll dif[N];
+int n, m;
+
+bool check(int mid) &#123;
+    //拷贝差分数组到临时数组
+    for (int i = 1; i &lt;= n; ++i) dif[i] = r[i];
+    //差分数组的区间操作
+    for (int i = 1; i &lt;= mid; ++i) &#123;
+        dif[st[i]] -= d[i];
+        dif[ed[i] + 1] += d[i];
+    &#125;
+    //求和还原到原数列
+    ll ret = 0;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        ret += dif[i];
+        if (ret &lt; 0) return false;
+    &#125;
+    
+    return true;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; r[i];
+    for (int i = 1; i &lt;= m; ++i) &#123;
+        cin &gt;&gt; d[i] &gt;&gt; st[i] &gt;&gt; ed[i];
+    &#125;
+    //处理成差分数组
+    for (int i = n; i; --i) r[i] -= r[i - 1];
+    
+    int l = 1, r = m;
+    while (l &lt; r) &#123;
+        int mid = l + r &gt;&gt; 1;
+        if (check(mid)) l = mid + 1;
+        else r = mid;
+    &#125;
+    
+    if (check(l)) cout &lt;&lt; 0;
+    else cout &lt;&lt; -1 &lt;&lt; endl &lt;&lt; l;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-499-聪明的质监员"><a href="#AcWing-499-聪明的质监员" class="headerlink" title="AcWing 499. 聪明的质监员"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/501/">AcWing 499. 聪明的质监员</a></h2><h3 id="二分-前缀和"><a href="#二分-前缀和" class="headerlink" title="二分 + 前缀和"></a>二分 + 前缀和</h3><p>区间上的检验值 $Y_i$ = 区间矿石个数 * 价值之和，前提是$W_i$ &gt;= $W$<br>也就是说 $W$ 越大 符合要求的矿石越少 自然 $Y_i$ 越小 则 $Y$ 越小<br>所以 $Y$ 和 $W$ 成反比，也就是单调递减<br>考虑使用二分找出最佳的 $W$</p>
+<p>然后就是 $Y_i$ 的计算<br>为了快速求出区间上符合要求的个数以及对应的价值之和<br>用前缀和预处理 就可以快速得到结果</p>
+<p>还有一个问题，当最后一次二分, 区间的长度最后为$2$时<br>有可能 $getY(l) &gt; S$, $getY(r) &lt; S$, 也有可能反过来，在这里取前者<br>此时需要对两个答案进行比较，才能确定哪个是最优解</p>
+<p>我使用的二分是 $l = mid + 1, r = mid$<br>当区间长度为2时, $r = l + 1, mid = (l + r) / 2 = l$<br>最后肯定是 $getY(mid) = getY(l) &gt; S$, 然后 $l = mid + 1 = r$, 结束二分<br>所以需要对结束二分前的 $mid$, 和结束后的 $mid + 1$ 进行比较<br>此时 $mid + 1 = l = r, mid = l - 1 = r - 1$<br>所以是对 $getY(l - 1)$ 和 $getY(l)$ 或者 $getY(r - 1)$ 和 $getY(r)$ 进行比较得到答案</p>
+<p>$PS$: 如果你采用的是 $l = mid, r = mid - 1$, 可以自己进行推导, 此时需要比较的是 $getY(l)$ 和 $getY(l + 1)$</p>
+<h3 id="参考代码-14"><a href="#参考代码-14" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+
+using namespace std;
+typedef long long ll;
+
+const int N = 2e5 + 5;
+int w[N], v[N], L[N], R[N], cnt[N];
+ll S, sum[N];
+int n, m;
+
+ll getY(int mid) &#123;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (w[i] &gt;= mid) &#123;
+            sum[i] = sum[i - 1] + v[i];
+            cnt[i] = cnt[i - 1] + 1;
+        &#125; else &#123;
+            sum[i] = sum[i - 1];
+            cnt[i] = cnt[i - 1];
+        &#125;
+    &#125;
+    
+    ll ret = 0;
+    for (int i = 0; i &lt; m; ++i) &#123;
+        ret += (cnt[R[i]] - cnt[L[i] - 1]) * (sum[R[i]] - sum[L[i] - 1]);
+    &#125;
+    
+    return ret;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; S;
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; w[i] &gt;&gt; v[i];
+    for (int i = 0; i &lt; m; ++i) cin &gt;&gt; L[i] &gt;&gt; R[i];
+    
+    int l = 0, r = 1e6 + 1;
+    while (l &lt; r) &#123;
+        int mid = (l + r) &gt;&gt; 1;
+        if (getY(mid) &gt; S) l = mid + 1;
+        else r = mid;
+    &#125;
+    
+    cout &lt;&lt; min(abs(getY(l) - S), abs(getY(l - 1) - S));
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="AcWing-125-耍杂技的牛"><a href="#AcWing-125-耍杂技的牛" class="headerlink" title="AcWing 125. 耍杂技的牛"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/127/">AcWing 125. 耍杂技的牛</a></h2><p>与 <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/116/">AcWing 114. 国王游戏</a> 相同套路的一道题</p>
+<h3 id="排序-贪心"><a href="#排序-贪心" class="headerlink" title="排序 + 贪心"></a>排序 + 贪心</h3><p>时间复杂度 $O(nlog(n))$<br>做法：按照牛的重量与强壮程度之和 $W_i + S_i$ 排序，得到的便是最优做法。</p>
+<p>证明：<br>第 $i$ 头牛的危险程度： $\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</p>
+<p>接下来列出两头牛在位置顺序交换前后的危险程度</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} - S_i$</td>
+<td>$\displaystyle\sum_{j=1}^{i - 1}{W_j} + W_{i+1} - S_i$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$\displaystyle\sum_{j=1}^{i}{W_j} - S_{i+1}$</td>
+<td>$\displaystyle\sum_{j=1}^{i-1}{W_j} - S_{i+1}$</td>
+</tr>
+</tbody></table>
+<p>化简式子，减去$\displaystyle\sum_{j=1}^{i-1}{W_j}$</p>
+<table>
+<thead>
+<tr>
+<th>牛</th>
+<th>交换前</th>
+<th>交换后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$i$</td>
+<td>$- S_i (a)$</td>
+<td>$W_{i+1} - S_i (b)$</td>
+</tr>
+<tr>
+<td>$i + 1$</td>
+<td>$W_i - S_{i+1} (c)$</td>
+<td>$- S_{i+1} (d)$</td>
+</tr>
+</tbody></table>
+<p>首先，明显 $a &lt; b, d &lt; c$<br>所以如果能得出 $b$ 和 $c$ 的关系，就能比较交换前后危险程度的大小<br>当 $W_{i+1} - S_i$ &gt;= $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &gt;= $W_i + S_i$，交换前的危险程度更小<br>当 $W_{i+1} - S_i$ &lt; $W_i - S_{i+1}$，移项变成$W_{i+1} + S_{i+1}$ &lt; $W_i + S_i$，交换前后的危险程度更小</p>
+<p>可知交换前后的危险程度和 $W_i + S_i$ 有关，到此证毕。</p>
+<p>具体做法：根据 $W_i + S_i$ 排序，然后枚举记录更大的危险程度，输出即可。</p>
+<h3 id="参考代码-15"><a href="#参考代码-15" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+
+const int N = 5e4 + 5;
+pii a[N];
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    int w, s;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        cin &gt;&gt; w &gt;&gt; s;
+        //因为sort函数是按照数组第一维来排序的
+        //为了方便排序 直接把数组第一维变成两者之和
+        a[i] = &#123;w + s, w&#125;;
+    &#125;
+    
+    sort(a, a + n);
+    
+    int ans = -0x3f3f3f3f, sum = 0;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        int w = a[i].second, s = a[i].first - w;
+        //记录更大的危险程度 重量减去强壮程度
+        ans = max(ans, sum - s);
+        //计算重量之和
+        sum += w;
+    &#125;
+    
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/archives/3753999883/" title="Hexo next主题 更新社交链接图标 引入iconfont阿里巴巴矢量图标库"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Hexo next主题 更新社交链接图标 引入iconfont阿里巴巴矢量图标库</span></a><a class="button is-default" href="/archives/2940978202/" title="Acwing寒假每日一题(入门组) 打卡记录 题解"><span class="has-text-weight-semibold">Next: Acwing寒假每日一题(入门组) 打卡记录 题解</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/insight-21"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> insight 2021</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/post.js"></script></body></html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html><html class="appearance-auto" lang="zh"><head><meta charset="UTF-8"><title>Acwing算法进阶指南 0x00 &amp; 0x01 打卡 题解</title><meta name="description" content="如你所见"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/touxiang.jpg"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="学习《算法竞赛进阶指南》中的0x00 &amp;amp; 0x01章包括国内大公司笔试以及noip、acm、蓝桥杯等比赛涉及的绝大部分知识点
+
+
+欢迎来Acwing围观我点击标题，进入题目。
+Acwing 135. 最大子序和要求长度不超过 $m$ 的最大连续子序列和
+前缀和 + dp + 单调队列区间和用前缀和处理因为前缀和是$s[r] - s[l - 1]$所以考虑确定右端点$i$ 然后是左端点$s[j]$尽可能的小
+假设下标 $k &amp;lt; j &amp;lt; i$ 且 $s[k] &amp;gt;= s[j]$那对于 $i$ 来说 $k$ 肯定是不可取的 同理可以推出对于大于 $i$ 的右端点 $k$ 更加不可取因为 $k$ 更远 且更大 按照最优策略肯定是更短且左端点值更小的序列更好由这里可以推出使用单调性的做法
+考虑.."><meta name="generator" content="Hexo 5.4.0"></head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">insight's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Acwing算法进阶指南 0x00 &amp; 0x01 打卡 题解</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-135-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C"><span class="toc-text">Acwing 135. 最大子序和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C-dp-%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97"><span class="toc-text">前缀和 + dp + 单调队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-134-%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97"><span class="toc-text">Acwing 134. 双端队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-%E8%B4%AA%E5%BF%83"><span class="toc-text">排序 + 贪心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-1"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-133-%E8%9A%AF%E8%9A%93"><span class="toc-text">Acwing 133. 蚯蚓</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%80%A7-%E6%8E%92%E5%BA%8F-%E9%98%9F%E5%88%97"><span class="toc-text">单调性 + 排序 + 队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-2"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-132-%E5%B0%8F%E7%BB%84%E9%98%9F%E5%88%97"><span class="toc-text">Acwing 132. 小组队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97%E6%95%B0%E7%BB%84-%E6%A8%A1%E6%8B%9F"><span class="toc-text">队列数组 + 模拟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-3"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-131-%E7%9B%B4%E6%96%B9%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2"><span class="toc-text">Acwing 131. 直方图中最大的矩形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="toc-text">单调栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-4"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-130-%E7%81%AB%E8%BD%A6%E8%BF%9B%E5%87%BA%E6%A0%88%E9%97%AE%E9%A2%98"><span class="toc-text">Acwing 130. 火车进出栈问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-5"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-129-%E7%81%AB%E8%BD%A6%E8%BF%9B%E6%A0%88"><span class="toc-text">Acwing 129. 火车进栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF"><span class="toc-text">回溯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-6"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-128-%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">Acwing 128. 编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E9%A1%B6%E6%A0%88-%E5%89%8D%E7%BC%80%E5%92%8C-%E4%B8%80%E7%82%B9%E7%82%B9%E7%9A%84%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-text">对顶栈 + 前缀和 + 一点点的动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-7"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-41-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88"><span class="toc-text">Acwing 41. 包含min函数的栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%AE%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-text">差值计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-8"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-127-%E4%BB%BB%E5%8A%A1"><span class="toc-text">Acwing 127. 任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83"><span class="toc-text">贪心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-9"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-126-%E6%9C%80%E5%A4%A7%E7%9A%84%E5%92%8C"><span class="toc-text">Acwing 126. 最大的和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C-%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-text">最大子数组和 + 前缀和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-10"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-123-%E5%A3%AB%E5%85%B5"><span class="toc-text">Acwing 123. 士兵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-%E4%B8%AD%E4%BD%8D%E6%95%B0"><span class="toc-text">排序 + 中位数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-11"><span class="toc-text">参考代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Acwing-121-%E8%B5%B6%E7%89%9B%E5%85%A5%E5%9C%88"><span class="toc-text">Acwing 121. 赶牛入圈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86-%E5%8F%8C%E6%8C%87%E9%92%88-%E5%89%8D%E7%BC%80%E5%92%8C-%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="toc-text">二分 + 双指针 + 前缀和 + 离散化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81-12"><span class="toc-text">参考代码</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Acwing算法进阶指南 0x00 &amp; 0x01 打卡 题解</h1><time class="has-text-grey" datetime="2021-06-21T04:22:40.335Z">2021-06-21</time><article class="mt-2 post-content"><p>学习《算法竞赛进阶指南》中的0x00 &amp; 0x01章<br>包括国内大公司笔试以及noip、acm、蓝桥杯等比赛涉及的绝大部分知识点</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/user/myspace/index/34956/">欢迎来Acwing围观我</a><br>点击标题，进入题目。</p>
+<h2 id="Acwing-135-最大子序和"><a href="#Acwing-135-最大子序和" class="headerlink" title="Acwing 135. 最大子序和"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/137/">Acwing 135. 最大子序和</a></h2><p>要求长度不超过 $m$ 的最大连续子序列和</p>
+<h3 id="前缀和-dp-单调队列"><a href="#前缀和-dp-单调队列" class="headerlink" title="前缀和 + dp + 单调队列"></a>前缀和 + dp + 单调队列</h3><p><strong>区间和用前缀和处理</strong><br>因为前缀和是$s[r] - s[l - 1]$<br>所以考虑确定右端点$i$ 然后是左端点$s[j]$尽可能的小</p>
+<p>假设下标 $k &lt; j &lt; i$ 且 $s[k] &gt;= s[j]$<br>那对于 $i$ 来说 $k$ 肯定是不可取的 同理可以推出<br><strong>对于大于 $i$ 的右端点 $k$ 更加不可取</strong><br>因为 $k$ 更远 且更大 按照最优策略肯定是更短且左端点值更小的序列更好<br>由这里可以推出<strong>使用单调性</strong>的做法</p>
+<p>考虑用一个长度为 $m$ 的滑动窗口 来保存 $i$ 为右端点时 最佳左端点 $j$ 的答案</p>
+<ol>
+<li>如果长度大于 $m$ 窗口缩小</li>
+<li>取出左端点 计算最大值</li>
+<li>利用单调性 删除大于 $s[i]$ 的左端点</li>
+<li>放入新的左端点</li>
+</ol>
+<p>小结: 这和之前的<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/133/">单调栈</a>有点像 区别在于 单调队列往往和dp一起使用 优化dp</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+const int N = 3e5+5;
+int s[N], q[N]; // 前缀和 滑动窗口/队列
+int head, tail; // 左右端点/队头队尾
+
+int main() &#123;
+    int n, m; cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1; i &lt;= n; ++i) cin &gt;&gt; s[i], s[i] += s[i - 1];
+    
+    int ans = -0x3f3f3f3f;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        // 1
+        if (q[head] &lt; i - m) ++head;
+        // 2
+        ans = max(ans, s[i] - s[q[head]]);
+        // 3
+        while (head &lt;= tail &amp;&amp; s[i] &lt;= s[q[tail]]) --tail;
+        // 4
+        q[++tail] = i;
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-134-双端队列"><a href="#Acwing-134-双端队列" class="headerlink" title="Acwing 134. 双端队列"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/136/">Acwing 134. 双端队列</a></h2><p>表面是双端队列, 其实是一道烧脑题<br>通常, 简单题是模板题, 中等题是模板变形, 困难没有套路只能靠思考了</p>
+<h3 id="排序-贪心"><a href="#排序-贪心" class="headerlink" title="排序 + 贪心"></a>排序 + 贪心</h3><p>按照要求 枚举数组 先放一个元素进入队列 然后比当前小的放左边 大的放右边<br>那么最后<strong>每个deque里面的元素在原数组的下标序列 肯定是先降后增</strong></p>
+<p>因为要求最后合并是非降的 所以枚举的数组 应该是排序过后的<br><strong>问题转化成 找出排序后数组里有多少个原下标先降后增的序列</strong></p>
+<p>还需要考虑以下情况<br>因为存在相同值, 所以存在不稳定的顺序, 即在deque里的顺序有多种答案<br>所以我们要做出选择, 人为确定相同值的顺序, 得到最优解</p>
+<p>为了让先降后增的序列尽可能少, 即减少拐点<br>如果一段区间内存在相同值, 则按照下标顺序从大到小/从小到大排序<br>这样就能<strong>把这段区间和前面序列平滑衔接, 消灭拐点</strong></p>
+<p>那要选择从大到小/从小到大哪种呢? <strong>按照优先消灭拐点策略</strong>(也就是平滑衔接)<br>定义前一个值的下标为 $pre$ 连续相同值的下标序列的最大值 $maxi$ 最小值 $mini$<br>对于当前递减: 要想衔接, 只能 $pre &gt; maxi$<br>对于当前递增: 要想衔接, 只能 $pre &lt; mini$</p>
+<h3 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;limits.h&gt;
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+const int N = 2e5+5;
+pii a[N]; // 存放值 原数组下标
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+
+    for (int i = 0; i &lt; n; ++i) &#123;
+        cin &gt;&gt; a[i].first;
+        a[i].second = i;
+    &#125;
+    
+    // 按照值排序 否则按照下标排序
+    sort(a, a + n);
+    
+    // 答案至少为1
+    int ans = 1;
+    // 定义前一个元素的下标(一开始肯定是下降 下降的无穷远就是最大值)
+    // 以及当前序列的单调性
+    for (int i = 0, pre = INT_MAX, dir = -1; i &lt; n; ) &#123;
+        // 先找出有没有存在连续相同值的序列
+        int j = i;
+        while (j &lt; n &amp;&amp; a[i].first == a[j].first) ++j;
+        
+        // 定义连续相同值序列的最大值和最小值
+        int mini = a[i].second, maxi = a[j - 1].second;
+        // 判断是要从小到大/从大到小
+        // 如果当前是递减
+        if (dir == -1) &#123;
+            // 如果大于最大值 那么直接衔接
+            if (pre &gt; maxi) pre = mini;
+            // 否则需要改变方向
+            else dir = 1, pre = maxi;
+        &#125; else &#123;
+            // 如果当前是递增
+            // 如果小于最小值 那么直接衔接
+            if (pre &lt; mini) pre = maxi;
+            // 如果大于最大值 就要变成递减
+            // 也就是先降后增结束了 需要新建deque
+            else &#123;
+                ++ans;
+                dir = -1;
+                pre = mini;
+            &#125;
+        &#125;
+        // 最后 需要移动i
+        i = j;
+    &#125;
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-133-蚯蚓"><a href="#Acwing-133-蚯蚓" class="headerlink" title="Acwing 133. 蚯蚓"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/135/">Acwing 133. 蚯蚓</a></h2><p>当优先队列(堆)也超时的时候, 该怎么做?</p>
+<h3 id="单调性-排序-队列"><a href="#单调性-排序-队列" class="headerlink" title="单调性 + 排序 + 队列"></a>单调性 + 排序 + 队列</h3><p>要求每次切最长的蚯蚓, 可以考虑用堆取最大值<br>堆的时间复杂度$O(NlogN)$, 题目数据$7 * 10^6$, 会超时<br>这个时候需要用时间复杂度更小的方式取最大值<br>本题存在单调性, 即原数据排序后, 切之后的新蚯蚓长度也和原顺序相对不变<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/7209/">单调性证明</a><br>利用单调性, 开3个队列, 分别保存排序后的原数据, 切开后的左半部分, 右半部分<br>每次取3个队列的队头, 取最大值, 进行处理, 然后插回左半部分和右半部分的队列<br>这样就可以做到$O(1)$取最大值, 详细见注释<br>总时间复杂度$O(NlogN + M)$</p>
+<h3 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;limits.h&gt;
+
+using namespace std;
+
+const int N = 1e5+5, M = 7e6+5;
+int pq[N], lq[M], rq[M]; //原队列 切之后的左边 右边
+int qh, lh, rh, qt, lt = -1, rt = -1; // 3个队列的队头队尾
+int n, m, q, u, v, t;
+int delta; // 每次要增加的量
+
+/* 取出3个队列的最大值并从队列里删除 */
+int get_max() &#123;
+    int x = INT_MIN;
+    if (qh &lt;= qt) x = max(x, pq[qh]);
+    if (lh &lt;= lt) x = max(x, lq[lh]);
+    if (rh &lt;= rt) x = max(x, rq[rh]);
+    
+    if (qh &lt;= qt &amp;&amp; x == pq[qh]) ++qh;
+    else if (lh &lt;= lt &amp;&amp; x == lq[lh]) ++lh;
+    else ++rh;
+    
+    return x;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q &gt;&gt; u &gt;&gt; v &gt;&gt; t;
+    for (int i = 0; i &lt; n; ++i) cin &gt;&gt; pq[i];
+    // 从大到小排序
+    sort(pq, pq + n, greater&lt;int&gt;());
+    // 确定队尾
+    qt = n - 1;
+    
+    // 枚举 每次取出最长的蚯蚓 切
+    int len = m + 1;
+    for (int i = 1; i &lt; len; ++i) &#123;
+        int x = get_max() + delta;
+        if (i % t == 0) cout &lt;&lt; x &lt;&lt; &#39; &#39;;
+        // 防止乘法爆int
+        int l = 1ll * x * u / v;
+        int r = x - l;
+        delta += q;
+        // 给切开的新蚯蚓减去delta 相当于其他蚯蚓增加delta
+        // 就不用去给其他蚯蚓一一加上delta
+        l -= delta;
+        r -= delta;
+        lq[++lt] = l;
+        rq[++rt] = r;
+    &#125;
+    cout &lt;&lt; endl;
+    
+    len = n + m + 1;
+    for (int i = 1; i &lt; len; ++i) &#123;
+        int x = get_max();
+        // 前面减了delta 这里就要加回来
+        if (i % t == 0) cout &lt;&lt; x + delta &lt;&lt; &#39; &#39;;
+    &#125;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-132-小组队列"><a href="#Acwing-132-小组队列" class="headerlink" title="Acwing 132. 小组队列"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/134/">Acwing 132. 小组队列</a></h2><p>开始队列小节</p>
+<h3 id="队列数组-模拟"><a href="#队列数组-模拟" class="headerlink" title="队列数组 + 模拟"></a>队列数组 + 模拟</h3><p>由于题目要求出队和入队在常数时间内, 因此考虑把所有队伍的编号按照顺序抽取成一个队列, 再把每个队伍细化成一个队列, 也就是一个队列数组<br>为了快速找到当前队员的队伍号, 再用哈希的方式, 以队员编号为数组下标, 队伍号为数组值<br>剩下的就是模拟了, 要注意的是, 当出队后队伍没人来, 需要把这个队伍剔除掉</p>
+<h3 id="参考代码-3"><a href="#参考代码-3" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;queue&gt;
+
+using namespace std;
+
+const int N = 1005, M = 1e6 + 5;
+int teamid[M]; // 存放每个人对应的队伍编号
+
+int main() &#123;
+    int n, C = 1;
+    while (cin &gt;&gt; n, n) &#123;
+        cout &lt;&lt; &quot;Scenario #&quot; &lt;&lt; C++ &lt;&lt; endl;
+        for (int i = 0; i &lt; n; ++i) &#123;
+            int cnt;
+            cin &gt;&gt; cnt;
+            while (cnt--) &#123;
+                int x; cin &gt;&gt; x;
+                teamid[x] = i;
+            &#125;
+        &#125;
+        
+        queue&lt;int&gt; team; // 按照顺序存放队伍编号
+        queue&lt;int&gt; person[n]; // 存放每个队列里的人
+        string command;
+        while (cin &gt;&gt; command, command != &quot;STOP&quot;) &#123;
+            if (command == &quot;ENQUEUE&quot;) &#123;
+                int x; cin &gt;&gt; x;
+                int tid = teamid[x];
+                if (person[tid].empty()) team.push(tid);
+                person[tid].push(x);
+            &#125; else &#123;
+                int tid = team.front();
+                cout &lt;&lt; person[tid].front() &lt;&lt; endl;
+                person[tid].pop();
+                if (person[tid].empty()) team.pop();
+            &#125;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-131-直方图中最大的矩形"><a href="#Acwing-131-直方图中最大的矩形" class="headerlink" title="Acwing 131. 直方图中最大的矩形"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/133/">Acwing 131. 直方图中最大的矩形</a></h2><p>栈小节结束了!</p>
+<h3 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h3><p>暴力做法 以某个矩形为中心 向两边搜索 直到比它矮<br>扩展的最大面积就是$(r[i] - l[i] - 1) * heights[i]$<br>$O(N^2)$的复杂度行不通</p>
+<p>怎么优化?<br>设当前矩形下标为i<br>如果$i-1$的高度 $&gt; i$的高度 那么$i$后面的矩形的左边界也可以优化计算<br>如果$i+1 &gt; i, i+1$会被 $i$ 限制住, $i+1 &lt; i$ 那 $i+1$ 也一定小于 $i-1$<br>因此计算左边界时 靠左的且较高的可以直接跳过(有点递推的意思</p>
+<p>当我们找 i 左边第一个小于 heights[i] 如果 heights[i-1] &gt;= heights[i]<br>其实就是和 heights[i-1] 左边第一个小于 heights[i-1] 一样<br>依次类推，右边同理</p>
+<h3 id="参考代码-4"><a href="#参考代码-4" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;stack&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+const int N = 1e5 +5;
+int a[N];
+
+int main() &#123;
+    int n;
+    while (cin &gt;&gt; n, n) &#123;
+        stack&lt;int&gt; st;
+        // 不要忘记初始化右边界
+        vector&lt;int&gt; l(n), r(n, n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            cin &gt;&gt; a[i];
+        &#125;
+        for (int i = 0; i &lt; n; ++i) &#123;
+            while (st.size() &amp;&amp; a[st.top()] &gt;= a[i]) &#123;
+                // 如果某个矩形比下一个高 那它的右边界就确定了
+                r[st.top()] = i;
+                // 跳过高的矩形
+                st.pop();
+            &#125;
+            // 一直弹出左边比当前高的矩形 所以停下来的时候 左边界也可以确定了
+            l[i] = st.size() ? st.top() : -1;
+            st.push(i);
+        &#125;
+        // 高度最高1e9 所以答案可能超int
+        long long ans = 0;
+        for (int i = 0; i &lt; n; ++i) &#123;
+            ans = max(ans, (long long)(r[i] - l[i] - 1) * a[i]);
+        &#125;
+        cout &lt;&lt; ans &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-130-火车进出栈问题"><a href="#Acwing-130-火车进出栈问题" class="headerlink" title="Acwing 130. 火车进出栈问题"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/132/">Acwing 130. 火车进出栈问题</a></h2><p>这道加强数据范围, 不能用dfs了, 做完直接废了<br>分析一下会发现, 进栈出栈这个操作序列, 要出栈必先有进栈<br>把进栈看成左括号, 出栈看成右括号, 这道题就变成合法括号的方案数<br>像合法括号, 合法01序列, 进栈出栈, 这类都是属于组合数中出名的卡特兰数<br>卡特兰数有现成的公式<br>$$<br>\frac{C_{2n}^n}{n + 1} = \frac{2n!}{n!n!(n+1)}<br>$$<br>难点在于, 如何快速计算阶乘且不溢出<br>不溢出可以使用高精度, 快速计算可以选择双指针一边乘一边除<br>只不过这道题数据太强了, 这种做法, 答案的长度变化是先增后减, 这样运行到一半的时候会因为答案过长而超时<br>更理想的做法是, 答案的长度稳定增长, 直到和最终答案长度相同, 不变化<br>本来优化方法使用高精度压位就可以了, 奈何此题就是这么强, 还得继续优化<br>更好的做法是把公式的分母分子分解质因数, 然后上下的质因数个数做差, 剩下的肯定只有分母的质因数, 然后直接计算质因数的积就可以</p>
+<h3 id="参考代码-5"><a href="#参考代码-5" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+typedef long long ll;
+const int N = 6000010, M = 120010;
+ll ans[N], ansL;
+int prime[M];
+bool st[M];
+
+void getPrime(int n) &#123;
+    for (int i = 2; i &lt;= n; ++i) &#123;
+        for (int j = i + i; j &lt;= n; j += i)
+            st[j] = true;
+    &#125;
+&#125;
+
+int get(int n, int p) &#123;
+    int ret = 0;
+    while (n) &#123;
+        ret += n / p;
+        n /= p;
+    &#125;
+    return ret;
+&#125;
+
+void mul(int x) &#123;
+    ll t = 0;
+    for (int i = 0; i &lt;= ansL; ++i) &#123;
+        ans[i] = ans[i] * x + t;
+        t = ans[i] / 1000000000;
+        ans[i] %= 1000000000;
+    &#125;
+    while (t) &#123;
+        ans[++ansL] = t % 1000000000;
+        t /= 1000000000;
+    &#125;
+&#125;
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    int t = n &lt;&lt; 1;
+    
+    // 线性筛素数
+    getPrime(t);
+    
+    // 减去n!n!部分的质因数
+    for (int i = 2; i &lt;= t; ++i) &#123;
+        if (!st[i]) &#123;
+            prime[i] = get(t, i) - get(t - n, i) * 2;
+        &#125;
+    &#125;
+    // 减去n+1部分的质因数
+    int k = n + 1;
+    for (int i = 2; i &lt;= k; ++i) &#123;
+        while (k % i == 0) &#123;
+            --prime[i];
+            k /= i;
+        &#125;
+    &#125;
+    
+    // 高精度乘法
+    ans[0] = 1;
+    for (int i = 2; i &lt;= t; ++i) &#123;
+        while (prime[i]--) mul(i);
+    &#125;
+    
+    // 输出
+    printf(&quot;%lld&quot;, ans[ansL]);
+    for (int i = ansL - 1; ~i; --i) printf(&quot;%09lld&quot;, ans[i]);
+    cout &lt;&lt; endl;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-129-火车进栈"><a href="#Acwing-129-火车进栈" class="headerlink" title="Acwing 129. 火车进栈"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/131/">Acwing 129. 火车进栈</a></h2><p>今天肝两道题,进栈出栈的具体方案和方案数</p>
+<h3 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h3><p>对于$1\sim n$内的每个数, 都可以有进栈出栈两种选择<br>像这种有两种选择, 然后求具体方案的, 就可以用回溯来做<br>时间复杂度$O(2^N)$</p>
+<h3 id="参考代码-6"><a href="#参考代码-6" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;stack&gt;
+using namespace std;
+
+vector&lt;int&gt; ans;
+stack&lt;int&gt; st;
+int n, remain = 20;
+
+void dfs(int x) &#123;
+    if (!remain) return ;
+    if (ans.size() == n) &#123;
+        --remain;
+        for (auto e : ans) cout &lt;&lt; e;
+        cout &lt;&lt; endl;
+        return ;
+    &#125;
+    // 答案的回溯
+    if (st.size()) &#123;
+        ans.push_back(st.top());
+        st.pop();
+        dfs(x);
+        st.push(ans.back());
+        ans.pop_back();
+    &#125;
+    // 栈的回溯
+    if (x &lt;= n) &#123;
+        st.push(x);
+        dfs(x + 1);
+        st.pop();
+    &#125;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; n;
+    dfs(1);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-128-编辑器"><a href="#Acwing-128-编辑器" class="headerlink" title="Acwing 128. 编辑器"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/130/">Acwing 128. 编辑器</a></h2><p>栈的变形, 对顶栈</p>
+<h3 id="对顶栈-前缀和-一点点的动态规划"><a href="#对顶栈-前缀和-一点点的动态规划" class="headerlink" title="对顶栈 + 前缀和 + 一点点的动态规划"></a>对顶栈 + 前缀和 + 一点点的动态规划</h3><p>对顶栈我也是今天才接触到, 类似指针/光标在序列中移动的, 就可以考虑对顶栈<br>因为要快速求出当前光标之前的最大值, 先用前缀和处理快速求出区间之和<br>然后再加上一点点的DP, 如果加上当前数没有之前序列大, 那就不加</p>
+<h3 id="参考代码-7"><a href="#参考代码-7" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include &lt;limits.h&gt;
+using namespace std;
+
+const int N = 1e6 + 5;
+int sl[N], sr[N], topl, topr;
+int sum[N], maxV[N];
+
+void add(int x) &#123;
+    sl[++topl] = x;
+    sum[topl] = sum[topl - 1] + x;
+    maxV[topl] = max(sum[topl], maxV[topl - 1]);
+&#125;
+
+int main() &#123;
+    int q; cin &gt;&gt; q;
+    maxV[0] = INT_MIN;
+    while (q--) &#123;
+        int x;
+        char i;
+        cin &gt;&gt; i;
+        if (i == &#39;I&#39;) &#123;
+            cin &gt;&gt; x;
+            add(x);
+        &#125; else if (i == &#39;D&#39;) &#123;
+            if (topl) --topl;
+        &#125; else if (i == &#39;L&#39;) &#123;
+            if (topl) sr[++topr] = sl[topl--];
+        &#125; else if (i == &#39;R&#39;) &#123;
+            if (topr) add(sr[topr--]);
+        &#125; else &#123;
+            cin &gt;&gt; x;
+            cout &lt;&lt; maxV[x] &lt;&lt; endl;
+        &#125;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-41-包含min函数的栈"><a href="#Acwing-41-包含min函数的栈" class="headerlink" title="Acwing 41. 包含min函数的栈"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/90/">Acwing 41. 包含min函数的栈</a></h2><p>开始栈的题型</p>
+<h3 id="差值计算"><a href="#差值计算" class="headerlink" title="差值计算"></a>差值计算</h3><p>这道题容易想到的做法有, 使用一个辅助栈, 保存实时的最小值</p>
+<p>不过这道题还有一个空间复杂度更低的做法, 利用差值计算(时间换空间?)<br>举个例子, 有这么一个操作序列, 压入-1, 3, -4, 取最小值, 弹出, 取栈顶, 取最小值<br>压入-1, 此时栈为空, 因此最小值min = -1, 压入栈-1 - min = 0;<br>压入3, 压入栈3 - min = 4, 更新最小值;<br>压入-4, 压入栈-4 - min = -3, 更新最小值;<br>取最小值, 返回min;<br>弹出, 判断栈顶是否小于0, 如果是, min -= 栈顶, 更新最小值;<br>取栈顶, 返回栈顶与最小值之和(减法的逆运算);<br>取最小值, 返回min.</p>
+<h3 id="参考代码-8"><a href="#参考代码-8" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">class MinStack &#123;
+public:
+    /** initialize your data structure here. */
+    stack&lt;long long&gt; s;
+    long long m;
+    MinStack() &#123;
+
+    &#125;
+    
+    void push(int x) &#123;
+        if (!s.size()) m = x;
+        s.push(x - m);
+        m = min(m, (long long)x);
+    &#125;
+    
+    void pop() &#123;
+        long long t = s.top();
+        if (t &lt; 0) m -= t;
+        // m -= (t &gt;&gt; 63) &amp; t; // 骚操作
+        s.pop();
+    &#125;
+    
+    int top() &#123;
+        if (s.top() &lt; 0) return m;
+        return m + s.top();
+    &#125;
+    
+    int getMin() &#123;
+        return m;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="Acwing-127-任务"><a href="#Acwing-127-任务" class="headerlink" title="Acwing 127. 任务"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/129/">Acwing 127. 任务</a></h2><p>这道题是贪心部分的题, 如果做过算法竞赛进阶指南中的贪心部分, 就很熟悉</p>
+<h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><p>因为工作时间的比重最大, 所以按照工作时间优先, 工作级别次序的方式排序<br>然后在任务里, 按照工作时间从大到小, 找出符合工作时间的所有机器<br>再找出级别最接近的机器, 这样才不会浪费级别</p>
+<p>因为符合工作时间的机器可能有很多台, 所以只能按序枚举<br>而最接近工作级别的只需要一台, 所以可以使用二分<br>在这里使用<code>C++</code>的STL容器<code>multiset</code>, 允许元素重复的<code>set</code>, 支持<code>O(logN)</code>的二分查找</p>
+<h3 id="参考代码-9"><a href="#参考代码-9" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;set&gt;
+using namespace std;
+
+const int N = 1e5 + 5;
+typedef pair&lt;int, int&gt; pii;
+pii macs[N], tasks[N];
+
+int main() &#123;
+    int n, m;
+    while (cin &gt;&gt; n &gt;&gt; m) &#123;
+        for (int i = 0; i &lt; n; ++i) cin &gt;&gt; macs[i].first &gt;&gt; macs[i].second;
+        for (int i = 0; i &lt; m; ++i) cin &gt;&gt; tasks[i].first &gt;&gt; tasks[i].second;
+        //排序 默认从小到大
+        sort(macs, macs + n);
+        sort(tasks, tasks + m);
+        // 允许重复的set
+        multiset&lt;int&gt; st;
+        int cnt = 0;
+        long long ans = 0;
+        // 用任务去找合适的机器
+        // 要从大到小枚举 所以逆序枚举
+        for (int i = m - 1, j = n - 1; ~i; --i) &#123;
+            // 满足工作时间的 就拿出来放到set里
+            while (~j &amp;&amp; macs[j].first &gt;= tasks[i].first) 
+                st.insert(macs[j--].second);
+            // 二分找到最接近级别的机器
+            auto it = st.lower_bound(tasks[i].second);
+            if (it != st.end()) &#123;
+                ++cnt;
+                ans += 500 * tasks[i].first + 2 * tasks[i].second;
+                st.erase(it);
+            &#125;
+        &#125;
+        cout &lt;&lt; cnt &lt;&lt; &#39; &#39; &lt;&lt; ans &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-126-最大的和"><a href="#Acwing-126-最大的和" class="headerlink" title="Acwing 126. 最大的和"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/128/">Acwing 126. 最大的和</a></h2><p>是<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/50/">最大子数组和</a>的二维版本<br>最大子数组和还有一个进阶版本, 求出具体子数组, 详见<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1481/">1479. 最大子序列和</a></p>
+<h3 id="最大子数组和-前缀和"><a href="#最大子数组和-前缀和" class="headerlink" title="最大子数组和 + 前缀和"></a>最大子数组和 + 前缀和</h3><p>一般模板题变成二维后, 大部分做法就是把二维转换成一维, 然后用一维的做法做就行了</p>
+<p>这道题把最大子数组和, 变成最大子矩阵和, 如果我们能把子矩阵变成子数组的形式就好了<br>考虑把子矩阵的多行, 想象成只有一行, 这样就变成一维的子数组了!<br>怎么做呢, 把那么多行的值, 按照每列从上到下累加成一个值, 也就是子数组每个元素就是每列的和<br>为了快速求出累加值, 可以使用前缀和处理</p>
+<p>剩下的就是想办法枚举出每个子矩阵的值了, 这里直接暴力枚举<br>先枚举出上下边界, 然后每次计算边界内所有子矩阵的值, 使用最大子数组的方式求出最大值<br>由于数据最大100, 所以$N^3$是没有问题的</p>
+<p>小结一下, 把矩阵的每一列按照从上到下前缀和处理, 然后确定上下边界, 每次枚举边界内的子矩阵的值</p>
+<h3 id="参考代码-10"><a href="#参考代码-10" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N = 105;
+int a[N][N];
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    
+    for (int i = 1, x; i &lt;= n; ++i)
+        for (int j = 1; j &lt;= n; ++j) &#123;
+            cin &gt;&gt; x;
+            // 列方向前缀和
+            a[i][j] = a[i - 1][j] + x;
+        &#125;
+        
+    int ans = -128;
+    // 枚举上下边界
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        for (int j = i; j &lt;= n; ++j) &#123;
+            int f = 0;
+            // 在边界内 行方向上扫描计算和
+            // 使用最大子数组和的方法计算最大值
+            for (int k = 1; k &lt;= n; ++k) &#123;
+                int w = a[j][k] - a[i - 1][k];
+                f = max(f, 0) + w;
+                ans = max(f, ans);
+            &#125;
+        &#125;
+    &#125;
+    
+    cout &lt;&lt; ans;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-123-士兵"><a href="#Acwing-123-士兵" class="headerlink" title="Acwing 123. 士兵"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/125/">Acwing 123. 士兵</a></h2><p>今天一口气更三道!</p>
+<h3 id="排序-中位数"><a href="#排序-中位数" class="headerlink" title="排序 + 中位数"></a>排序 + 中位数</h3><p>这道题是<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/106/">货仓选址</a>的二维升级版(话说中位数竟然能衍生这么多题目), 分别从x, y方向来找最小值</p>
+<p>这道题存在一个性质, 最终答案的士兵顺序和原始数据排序后的顺序是一样的, 画个图就很清楚<br>因为要想所有士兵走到同一直线最短距离, 每个士兵肯定是选择垂直于最终队列方向的路线, 所以和一开始的顺序一样</p>
+<p>x方向上, 我们假设最终队列, 第一个士兵的位置为$a$, 则第$i$个士兵的位置为$a + i - 1$<br>那么x方向上的位移就是$|X_i - (a + i - 1)|$, 可以转换为$|(X_i - i + 1) - a|$<br>形式上就是变量减去一个常数, 要求最小值, 就和货仓选址一样, 是选$(X_i - i + 1)$的数组的中位数作为$a$的值</p>
+<p>y方向上, 想象有一条平行于x轴的直线, 如果要想这条线距离所有士兵最近, 也是中位数<br>所以这道题就是中位数拓展到二维版, 然后其中一个方向特殊处理了一下<br>时间复杂度, 排序$O(NlogN)$, 找中位数$O(N)$, 整体$O(NlogN)$</p>
+<h3 id="参考代码-11"><a href="#参考代码-11" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+const int N = 1e4 + 5;
+pii a[N];
+
+bool cmpx(pii a, pii b) &#123;
+    return a.first &lt; b.first;
+&#125;
+
+bool cmpy(pii a, pii b) &#123;
+    return a.second &lt; b.second;
+&#125;
+
+int main() &#123;
+    int n; cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        cin &gt;&gt; a[i].first &gt;&gt; a[i].second;
+    &#125;
+    
+    // y
+    nth_element(a, a + (n &gt;&gt; 1), a + n, cmpy);
+    pii mid = a[n &gt;&gt; 1];
+    int ans = 0;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        ans += abs(a[i].second - mid.second);
+    &#125;
+    
+    // x
+    sort(a, a + n, cmpx);
+    for (int i = 0; i &lt; n; ++i) &#123;
+        a[i].first -= i - 1;
+    &#125;
+    nth_element(a, a + (n &gt;&gt; 1), a + n, cmpx);
+    mid = a[n &gt;&gt; 1];
+    for (int i = 0; i &lt; n; ++i) &#123;
+        ans += abs(a[i].first - mid.first);
+    &#125;
+    cout &lt;&lt; ans;
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="Acwing-121-赶牛入圈"><a href="#Acwing-121-赶牛入圈" class="headerlink" title="Acwing 121. 赶牛入圈"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/123/">Acwing 121. 赶牛入圈</a></h2><p>一道做完感觉整个人都升华了的题目</p>
+<h3 id="二分-双指针-前缀和-离散化"><a href="#二分-双指针-前缀和-离散化" class="headerlink" title="二分 + 双指针 + 前缀和 + 离散化"></a>二分 + 双指针 + 前缀和 + 离散化</h3><p><strong>要求某个最值, 可以考虑二分</strong>, 问题是二分的<code>check()</code>函数怎么写<br>使用二分得到的矩形长度$mid$, 枚举矩形边长, 然后计算矩阵内的草的数量, 与目标值比较<br><strong>区间内草的数量可以使用前缀和优化</strong>, 在$O(1)$内计算出来<br><strong>枚举长度可以使用双指针</strong>, 一前一后保证区间长度在$mid$内<br>问题是坐标范围$1\sim10000$, 如果开个矩阵数组, 每次check的时候遍历数组, <strong>由于是$N^2$, 在时间和空间上都直接起飞</strong><br>注意到最多只有500个点, 也就是说<strong>坐标分布是不均匀的</strong>, 开那么大的数组完全是浪费<br>为此<strong>引入离散化, 优化时空复杂度</strong></p>
+<p>什么是离散化? 简单来说, 就是通过映射/哈希的方式, 把大数据的值转成数据的相对顺序的编号<br>通俗来讲, 就是数据太大, 数组不好用, 而且我们只关心元素的相对顺序, 这个时候就可以用离散化<br>离散化的对象可以是整数, 浮点数, 字符串</p>
+<p>离散化怎么做? 通常是先去重删除重复元素, 然后排序得到相对顺序, 最后把值修改成排序后的编号</p>
+<pre><code class="c++">// 这里因为去重函数要求排序 所以先排序 再去重
+sort(num.begin(), num.end());
+num.erase(unique(num.begin(), num.end()), num.end());
+for (int i = 0; i &lt; num.size(); ++i) &#123;
+    hash[i] = lower_bound(num.begin(), num.end(), num[i]) - num.begin();
+&#125;
+</code></pre>
+<p>最后梳理一下, 二分矩形边长, 计算区间值, 比较, 使用离散化和前缀和进行预处理</p>
+<h3 id="参考代码-12"><a href="#参考代码-12" class="headerlink" title="参考代码"></a>参考代码</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+
+// 解释一下1000 因为最多500个点 
+// 如果每个坐标的x,y两两不同 那最多会有不同的500个x 500个y 
+// 考虑到离散化之后 新编号可能达到1000 因此前缀和数组大小必须开到1000*1000
+// 主要是因为离散化
+const int N = 1005;
+pii points[N]; // 坐标数组
+vector&lt;int&gt; nums; // 用于离散化的数组
+int sum[N][N]; // 前缀和数组
+int n, C;
+
+bool check(int mid) &#123;
+    // 双指针遍历
+    // x1 不在mid区间内的第一个数
+    // x2 mid区间的最后一个数
+    for (int x1 = 0, x2 = 1; x2 &lt; nums.size(); ++x2) &#123;
+        // 什么意思? 因为x1和x2是对应的 x2++之后, 需要判断x1还在不在mid范围内
+        // 1. x1 + 1 如果x1前一个点 和 x2相减都小于mid 那x1肯定需要前进一步
+        // 2. nums[x1 + 1] + 1 是因为这里用坐标代表一个单位矩阵 实际情况需要补上一个单位
+        while (nums[x2] - nums[x1 + 1] + 1 &gt; mid) ++x1;
+        // 同理
+        for (int y1 = 0, y2 = 1; y2 &lt; nums.size(); ++y2) &#123;
+            while (nums[y2] - nums[y1 + 1] + 1 &gt; mid) ++y1;
+            int t = sum[x2][y2] - sum[x2][y1] - sum[x1][y2] + sum[x1][y1];
+            if (t &gt;= C) return true;
+        &#125;
+    &#125;
+    return false;
+&#125;
+
+int main() &#123;
+    cin &gt;&gt; C &gt;&gt; n;
+    
+    // 插入0是因为前缀和要用到下标0 所以也插入离散化一下
+    nums.push_back(0);
+    for (int i = 0; i &lt; n; ++i) &#123;
+        int x, y; cin &gt;&gt; x &gt;&gt; y;
+        points[i] = &#123;x, y&#125;;
+        nums.push_back(x);
+        nums.push_back(y);
+    &#125;
+    
+    // 离散化三步走 排序去重+按照顺序重新编号
+    sort(nums.begin(), nums.end());
+    nums.erase(unique(nums.begin(), nums.end()), nums.end());
+    for (int i = 0; i &lt; n; ++i) &#123;
+        // 使用自带的二分查找函数 查找旧数据在新数组的位置
+        int x = lower_bound(nums.begin(), nums.end(), points[i].first) - nums.begin();
+        int y = lower_bound(nums.begin(), nums.end(), points[i].second) - nums.begin();
+        // 坐标对应草 草数量+1
+        ++sum[x][y];
+    &#125;
+    
+    // 前缀和处理
+    int len = nums.size();
+    for (int i = 1; i &lt; len; ++i) &#123;
+        for (int j = 1; j &lt; len; ++j) &#123;
+            sum[i][j] += sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1];
+        &#125;
+    &#125;
+    
+    // 开始二分
+    int l = 1, r = 10000;
+    while (l &lt; r) &#123;
+        int mid = l + r &gt;&gt; 1;
+        if (check(mid)) r = mid;
+        else l = mid + 1;
+    &#125;
+    cout &lt;&lt; l;
+    
+    return 0;
+&#125;
+</code></pre>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/archives/3674455572/" title="Acwing算法进阶指南 0x02 打卡 题解"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Acwing算法进阶指南 0x02 打卡 题解</span></a><a class="button is-default" href="/archives/4279424088/" title="竞赛模板"><span class="has-text-weight-semibold">Next: 竞赛模板</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/insight-21"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> insight 2021</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/post.js"></script></body></html>
